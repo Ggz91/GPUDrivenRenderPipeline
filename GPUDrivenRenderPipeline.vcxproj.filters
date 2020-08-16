@@ -13,10 +13,297 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="FBXUtil">
+      <UniqueIdentifier>{9a684f61-559d-40ef-9110-3e676ab927d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{0b58ea23-6395-49ab-880c-075ab0944668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="spdlog">
+      <UniqueIdentifier>{f9819d69-30c5-4abc-b8b3-7ce9a802f619}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Modules\FBXUtil\FBXWrapper.cpp">
+      <Filter>FBXUtil</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Modules\FBXUtil\FBXWrapper.h">
+      <Filter>FBXUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\ResLoadCommon.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\Vertex.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\android_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\ansicolor_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\ansicolor_sink-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\cfg\argv.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\async.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\async_logger.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\async_logger-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\backtracer.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\backtracer-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\base_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\base_sink-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\basic_file_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\basic_file_sink-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bin_to_hex.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\chrono.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\circular_q.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\color.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\common.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\common-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\compile.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\console_globals.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\core.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\daily_file_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\dist_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\dup_filter_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\cfg\env.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\file_helper.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\file_helper-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\fmt.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\fmt_helper.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\format.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\format-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\formatter.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fwd.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\cfg\helpers.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\cfg\helpers-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\locale.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\cfg\log_levels.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\log_msg.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\log_msg_buffer.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\log_msg_buffer-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\log_msg-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\logger.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\logger-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\mpmc_blocking_q.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\msvc_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\null_mutex.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\null_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\os.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\os-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\ostr.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\ostream.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\ostream_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\pattern_formatter.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\pattern_formatter-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\periodic_worker.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\periodic_worker-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\posix.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\printf.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\fmt\bundled\ranges.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\registry.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\registry-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\ringbuffer_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\rotating_file_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\rotating_file_sink-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\sink-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\spdlog.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\spdlog-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\stdout_color_sinks.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\stdout_color_sinks-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\stdout_sinks.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\stdout_sinks-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\synchronous_factory.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\syslog_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\systemd_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\tcp_client.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\tcp_client-windows.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\tcp_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\thread_pool.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\thread_pool-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\tweakme.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\version.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\win_eventlog_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\wincolor_sink.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\wincolor_sink-inl.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\spdlog\include\spdlog\details\windows_include.h">
+      <Filter>spdlog</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
