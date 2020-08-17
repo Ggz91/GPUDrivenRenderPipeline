@@ -1,7 +1,6 @@
 #pragma once
 
 #include <assert.h>
-#include "./spdlog/include/spdlog/spdlog.h"
+#include "Defines.h"
+#include "../Logger/LoggerWrapper.h"
 
-#define GRPAppBegin namespace GRPApp{
-#define GRPAppEnd }

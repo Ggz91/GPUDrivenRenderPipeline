@@ -1,6 +1,7 @@
 #include "FBXWrapper.h"
 #include <fbxsdk/fileio/fbximporter.h>
 #include "spdlog/sinks/stdout_color_sinks.h"
+#include "../Common/Common.h"
 
 GRPAppBegin
 FBXWrapper* FBXWrapper::m_instance = NULL;
@@ -29,13 +30,11 @@ FBXWrapper* FBXWrapper::Instance()
 
 ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<Vertex>* p_out_vertex_vectors)
 {
-	auto console = spdlog::stdout_color_mt("console");
-
 	auto impoter = FbxImporter::Create(m_manager, "");
 	bool impoter_status = impoter->Initialize(file_name.c_str(), -1, m_manager->GetIOSettings());
 	if (!impoter_status)
 	{
-		spdlog::get("console")->info("{} {}", "FBX Importer Init Failed. file name :", file_name.c_str(), "Error code :", impoter->GetStatus().GetErrorString());
+		LogError("{} {}", "FBX Importer Init Failed. file name :", file_name.c_str(), "Error code :", impoter->GetStatus().GetErrorString());
 		return ResLoadStatus::LS_FAILED;
 	}
 	
@@ -43,7 +42,7 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<Vertex>* 
 	impoter_status = impoter->Import(scene);
 	if (!impoter_status)
 	{
-		spdlog::get("console")->info("{} {}", "FBX Importer Init Failed. file name :", file_name.c_str(), "Error code :", impoter->GetStatus().GetErrorString());
+		LogError("{} {}", "FBX Importer Init Failed. file name :", file_name.c_str(), "Error code :", impoter->GetStatus().GetErrorString());
 		return ResLoadStatus::LS_FAILED;
 	}
 	impoter->Destroy();
@@ -51,7 +50,7 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<Vertex>* 
 	auto root_node = scene->GetRootNode();
 	if (NULL == root_node)
 	{
-		spdlog::get("console")->info("{} {}","FBX Importer Init Failed. file name :", file_name.c_str(), "root node is null");
+		LogError("{} {}","FBX Importer Init Failed. file name :", file_name.c_str(), "root node is null");
 		return ResLoadStatus::LS_FAILED;
 	}
 
@@ -87,7 +86,7 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<Vertex>* 
 			}
 		}
 	}
-	spdlog::get("console")->info("{} {}","FBX Importer Init Sucess. file name :", file_name.c_str());
+	LogInfo("{} {}","FBX Importer Init Sucess. file name :", file_name.c_str());
 	return ResLoadStatus::LS_SUCCESS;
 }
 
