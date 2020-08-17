@@ -39,27 +39,6 @@
     <ClCompile Include="Modules\FBXUtil\FBXWrapper.cpp">
       <Filter>FBXWrapper</Filter>
     </ClCompile>
-    <ClCompile Include="Modules\App\Camera.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="Modules\App\d3dApp.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="Modules\App\d3dUtil.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="Modules\App\DDSTextureLoader.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="Modules\App\GameTimer.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="Modules\App\GeometryGenerator.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="Modules\App\MathHelper.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
     <ClCompile Include="Modules\App\App.cpp">
       <Filter>App</Filter>
     </ClCompile>
@@ -87,37 +66,31 @@
     <ClCompile Include="Modules\Logger\LoggerWrapper.cpp">
       <Filter>Logger</Filter>
     </ClCompile>
+    <ClCompile Include="Modules\Common\Camera.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Common\d3dApp.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Common\d3dUtil.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Common\DDSTextureLoader.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Common\GameTimer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Common\GeometryGenerator.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\Common\MathHelper.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Modules\FBXUtil\FBXWrapper.h">
       <Filter>FBXWrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\Camera.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\d3dApp.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\d3dUtil.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\d3dx12.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\DDSTextureLoader.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\GameTimer.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\GeometryGenerator.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\MathHelper.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\App\UploadBuffer.h">
-      <Filter>App</Filter>
     </ClInclude>
     <ClInclude Include="Modules\App\App.h">
       <Filter>App</Filter>
@@ -397,6 +370,36 @@
     </ClInclude>
     <ClInclude Include="Modules\Geometry\GeometryDefines.h">
       <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\VoidEngineInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\Camera.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\d3dApp.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\d3dUtil.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\d3dx12.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\DDSTextureLoader.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\GameTimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\GeometryGenerator.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\MathHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\UploadBuffer.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

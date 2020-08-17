@@ -1,9 +1,9 @@
 #include <windows.h>
-#include "Interface/VoidEngine.h"
+#include "Interface/VoidEngineInterface.h"
 #include <iostream>
 #include "Modules/FBXUtil/FBXWrapper.h"
 #include "Modules/App/App.h"
-#include "Modules/App/d3dUtil.h"
+#include "Modules/Common/d3dUtil.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)

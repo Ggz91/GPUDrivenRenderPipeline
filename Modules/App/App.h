@@ -1,6 +1,6 @@
 #pragma once
 
-#include "d3dApp.h"
+#include "../Common/d3dApp.h"
 
 class App : public D3DApp
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Common/Common.h"
-#include "../App/d3dUtil.h"
+#include "../Common/d3dUtil.h"
 #include <vector>
 #include <windows.h>
 

@@ -159,13 +159,13 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Modules\App\App.cpp" />
-    <ClCompile Include="Modules\App\Camera.cpp" />
-    <ClCompile Include="Modules\App\d3dApp.cpp" />
-    <ClCompile Include="Modules\App\d3dUtil.cpp" />
-    <ClCompile Include="Modules\App\DDSTextureLoader.cpp" />
-    <ClCompile Include="Modules\App\GameTimer.cpp" />
-    <ClCompile Include="Modules\App\GeometryGenerator.cpp" />
-    <ClCompile Include="Modules\App\MathHelper.cpp" />
+    <ClCompile Include="Modules\Common\Camera.cpp" />
+    <ClCompile Include="Modules\Common\d3dApp.cpp" />
+    <ClCompile Include="Modules\Common\d3dUtil.cpp" />
+    <ClCompile Include="Modules\Common\DDSTextureLoader.cpp" />
+    <ClCompile Include="Modules\Common\GameTimer.cpp" />
+    <ClCompile Include="Modules\Common\GeometryGenerator.cpp" />
+    <ClCompile Include="Modules\Common\MathHelper.cpp" />
     <ClCompile Include="Modules\FBXUtil\FBXWrapper.cpp" />
     <ClCompile Include="Modules\Logger\LoggerWrapper.cpp" />
     <ClCompile Include="Modules\Logger\spdlog\src\async.cpp" />
@@ -177,18 +177,18 @@
     <ClCompile Include="Modules\Logger\spdlog\src\stdout_sinks.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Interface\VoidEngineInterface.h" />
     <ClInclude Include="Modules\App\App.h" />
-    <ClInclude Include="Modules\App\Camera.h" />
-    <ClInclude Include="Modules\App\d3dApp.h" />
-    <ClInclude Include="Modules\App\d3dUtil.h" />
-    <ClInclude Include="Modules\App\d3dx12.h" />
-    <ClInclude Include="Modules\App\DDSTextureLoader.h" />
-    <ClInclude Include="Modules\App\GameTimer.h" />
-    <ClInclude Include="Modules\App\GeometryGenerator.h" />
-    <ClInclude Include="Modules\App\MathHelper.h" />
-    <ClInclude Include="Modules\App\UploadBuffer.h" />
+    <ClInclude Include="Modules\Common\Camera.h" />
     <ClInclude Include="Modules\Common\Common.h" />
+    <ClInclude Include="Modules\Common\d3dApp.h" />
+    <ClInclude Include="Modules\Common\d3dUtil.h" />
+    <ClInclude Include="Modules\Common\d3dx12.h" />
+    <ClInclude Include="Modules\Common\DDSTextureLoader.h" />
     <ClInclude Include="Modules\Common\Defines.h" />
+    <ClInclude Include="Modules\Common\GameTimer.h" />
+    <ClInclude Include="Modules\Common\GeometryGenerator.h" />
+    <ClInclude Include="Modules\Common\MathHelper.h" />
     <ClInclude Include="Modules\Common\ResLoadCommon.h" />
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\async.h" />
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\async_logger-inl.h" />
@@ -238,6 +238,7 @@
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\wincolor_sink.h" />
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\win_eventlog_sink.h" />
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\version.h" />
+    <ClInclude Include="Modules\Common\UploadBuffer.h" />
     <ClInclude Include="Modules\FBXUtil\FBXWrapper.h" />
     <ClInclude Include="Modules\Geometry\GeometryDefines.h" />
     <ClInclude Include="Modules\Logger\LoggerWrapper.h" />
