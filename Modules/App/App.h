@@ -10,4 +10,7 @@ public:
 protected:
 	void Update(const GameTimer& gt) override;
 	void Draw(const GameTimer& gt) override;
+
+private:
+
 };

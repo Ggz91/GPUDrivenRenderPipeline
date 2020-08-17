@@ -28,6 +28,9 @@
     <Filter Include="Logger\Spdlog">
       <UniqueIdentifier>{f9819d69-30c5-4abc-b8b3-7ce9a802f619}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{daa1eded-a43f-4e95-93c6-a4c024a99686}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -389,11 +392,11 @@
     <ClInclude Include="Modules\Common\ResLoadCommon.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Modules\Common\Vertex.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Modules\Common\Defines.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Geometry\GeometryDefines.h">
+      <Filter>Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

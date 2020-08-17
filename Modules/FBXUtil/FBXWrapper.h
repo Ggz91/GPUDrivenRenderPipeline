@@ -11,9 +11,11 @@
 #include <unordered_map>
 #include <vector>
 #include "../Common/ResLoadCommon.h"
-#include "../Common/Vertex.h"
+#include "../Geometry/GeometryDefines.h"
 
 GRPAppBegin
+struct ObjectData;
+
 class FBXWrapper
 {
 public:
@@ -24,7 +26,7 @@ public:
 		µ¥Àý
 	*/
 	static FBXWrapper* Instance();
-	ResLoadStatus LoadScene(std::string file_name, std::vector<Vertex>* p_out_vertex_vectors);
+	ResLoadStatus LoadScene(std::string file_name, std::vector<std::unique_ptr<ObjectData>>& object_datas);
 private:
 	/*
 		³õÊ¼»¯

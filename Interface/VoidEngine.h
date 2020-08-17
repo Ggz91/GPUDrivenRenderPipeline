@@ -1,17 +1,21 @@
 #pragma once
 
 #ifdef __Engine_Export
-#define	EngineDLLExport _declspec(dllexport)
+#define	EngineDLL _declspec(dllexport)
 #else
-#define	EngineDLLExport _declspec(dllimport)
+#define	EngineDLL _declspec(dllimport)
 #endif __Engine_Export
 #include <iostream>
 #include <string>
 
-extern "C" class EngineDLLExport Test
+extern "C" class EngineDLL IEngineWrapper
 {
 public:
-	Test();
-	void test();
+	void Init();
+	void Update();
+	void Draw();
+
+private:
+		
 };
 

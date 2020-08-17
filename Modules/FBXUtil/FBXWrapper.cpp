@@ -2,6 +2,7 @@
 #include <fbxsdk/fileio/fbximporter.h>
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "../Common/Common.h"
+#include "../Geometry/GeometryDefines.h"
 
 GRPAppBegin
 FBXWrapper* FBXWrapper::m_instance = NULL;
@@ -28,7 +29,7 @@ FBXWrapper* FBXWrapper::Instance()
 	return m_instance;
 }
 
-ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<Vertex>* p_out_vertex_vectors)
+ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::unique_ptr<ObjectData>>& object_datas)
 {
 	auto impoter = FbxImporter::Create(m_manager, "");
 	bool impoter_status = impoter->Initialize(file_name.c_str(), -1, m_manager->GetIOSettings());
@@ -67,7 +68,9 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<Vertex>* 
 		{
 			continue;
 		}
+		auto object_data = std::make_unique<ObjectData>();
 
+		//mesh
 		auto mesh = (FbxMesh*)(chid_node->GetNodeAttribute());
 		auto vertices = mesh->GetControlPoints();
 		for (int j=0; j<mesh->GetPolygonCount(); ++j)
@@ -78,13 +81,25 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<Vertex>* 
 			for (int k=0; k<vetex_num; ++k)
 			{
 				int control_point_index = mesh->GetPolygonVertex(j, k);
-				Vertex vertex;
-				vertex.Pos[0] = (float)vertices[control_point_index].mData[0];
-				vertex.Pos[0] = (float)vertices[control_point_index].mData[1];
-				vertex.Pos[0] = (float)vertices[control_point_index].mData[2];
-				p_out_vertex_vectors->push_back(vertex);
+				VertexData vertex;
+				vertex.Pos.x = (float)vertices[control_point_index].mData[0];
+				vertex.Pos.y = (float)vertices[control_point_index].mData[1];
+				vertex.Pos.z = (float)vertices[control_point_index].mData[2];
+				object_data->Mesh.Vertices.push_back(vertex);
+				object_data->Mesh.Indices.push_back(control_point_index);
 			}
 		}
+
+		//mat
+// 		auto mat = (FbxSurfaceMaterial*)(chid_node->GetNodeAttribute());
+// 		if (NULL == mat)
+// 		{
+// 			continue;
+// 		}
+// 		object_data->Mat.DiffuseAlbedo = mat->sDiffuse;
+// 		object_data->Mat.FresnelR0 = mat->sReflection;
+// 		object_data->Mat.Roughness = mat->sSpecularFactor;
+		object_datas.push_back(std::move(object_data));
 	}
 	LogInfo("{} {}","FBX Importer Init Sucess. file name :", file_name.c_str());
 	return ResLoadStatus::LS_SUCCESS;

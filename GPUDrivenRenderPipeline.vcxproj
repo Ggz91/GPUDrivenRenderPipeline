@@ -238,8 +238,8 @@
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\wincolor_sink.h" />
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\sinks\win_eventlog_sink.h" />
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\version.h" />
-    <ClInclude Include="Modules\Common\Vertex.h" />
     <ClInclude Include="Modules\FBXUtil\FBXWrapper.h" />
+    <ClInclude Include="Modules\Geometry\GeometryDefines.h" />
     <ClInclude Include="Modules\Logger\LoggerWrapper.h" />
     <ClInclude Include="Modules\Logger\spdlog\include\spdlog\async_logger.h" />
     <ClInclude Include="Modules\Logger\spdlog\include\spdlog\cfg\env.h" />
