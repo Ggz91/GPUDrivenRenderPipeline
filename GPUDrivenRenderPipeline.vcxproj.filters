@@ -28,8 +28,8 @@
     <Filter Include="Logger\Spdlog">
       <UniqueIdentifier>{f9819d69-30c5-4abc-b8b3-7ce9a802f619}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Geometry">
-      <UniqueIdentifier>{daa1eded-a43f-4e95-93c6-a4c024a99686}</UniqueIdentifier>
+    <Filter Include="ObjectDataToRenderItemConverter">
+      <UniqueIdentifier>{66292788-e674-485e-be77-bf0bdd4bd24d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="Modules\App\d3dApp.cpp">
       <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\ObjectDataToRenderItemConverter\ObjectDataToRenderItemConverter.cpp">
+      <Filter>ObjectDataToRenderItemConverter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,9 +371,6 @@
     <ClInclude Include="Modules\Common\Defines.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Modules\Geometry\GeometryDefines.h">
-      <Filter>Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="Interface\VoidEngineInterface.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -400,6 +400,12 @@
     </ClInclude>
     <ClInclude Include="Modules\App\d3dApp.h">
       <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Common\GeometryDefines.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\ObjectDataToRenderItemConverter\ObjectDataToRenderItemConverter.h">
+      <Filter>ObjectDataToRenderItemConverter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

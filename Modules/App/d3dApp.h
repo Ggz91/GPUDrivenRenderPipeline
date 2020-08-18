@@ -18,6 +18,7 @@
 #pragma comment(lib, "dxgi.lib")
 
 class IEngineWrapper;
+struct RenderItem;
 
 class D3DApp
 {
@@ -56,7 +57,7 @@ protected:
 	bool InitMainWindow();
 	bool InitDirect3D();
 	bool InitResources();
-
+	bool PushModels(std::vector<RenderItem*>&& render_items);
 protected:
 
     static D3DApp* mApp;

@@ -2,7 +2,6 @@
 #include <fbxsdk/fileio/fbximporter.h>
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "../Common/Common.h"
-#include "../Geometry/GeometryDefines.h"
 
 GRPAppBegin
 FBXWrapper* FBXWrapper::m_instance = NULL;

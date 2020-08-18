@@ -11,10 +11,9 @@
 #include <unordered_map>
 #include <vector>
 #include "../Common/ResLoadCommon.h"
-#include "../Geometry/GeometryDefines.h"
+#include "../Common/GeometryDefines.h"
 
 GRPAppBegin
-struct ObjectData;
 
 class FBXWrapper
 {

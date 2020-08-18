@@ -175,6 +175,7 @@
     <ClCompile Include="Modules\Logger\spdlog\src\fmt.cpp" />
     <ClCompile Include="Modules\Logger\spdlog\src\spdlog.cpp" />
     <ClCompile Include="Modules\Logger\spdlog\src\stdout_sinks.cpp" />
+    <ClCompile Include="Modules\ObjectDataToRenderItemConverter\ObjectDataToRenderItemConverter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interface\VoidEngineInterface.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Modules\Common\DDSTextureLoader.h" />
     <ClInclude Include="Modules\Common\Defines.h" />
     <ClInclude Include="Modules\Common\GameTimer.h" />
+    <ClInclude Include="Modules\Common\GeometryDefines.h" />
     <ClInclude Include="Modules\Common\GeometryGenerator.h" />
     <ClInclude Include="Modules\Common\MathHelper.h" />
     <ClInclude Include="Modules\Common\ResLoadCommon.h" />
@@ -240,7 +242,6 @@
     <ClInclude Include="Modules\Common\spdlog\include\spdlog\version.h" />
     <ClInclude Include="Modules\Common\UploadBuffer.h" />
     <ClInclude Include="Modules\FBXUtil\FBXWrapper.h" />
-    <ClInclude Include="Modules\Geometry\GeometryDefines.h" />
     <ClInclude Include="Modules\Logger\LoggerWrapper.h" />
     <ClInclude Include="Modules\Logger\spdlog\include\spdlog\async_logger.h" />
     <ClInclude Include="Modules\Logger\spdlog\include\spdlog\cfg\env.h" />
@@ -281,6 +282,7 @@
     <ClInclude Include="Modules\Logger\spdlog\include\spdlog\spdlog-inl.h" />
     <ClInclude Include="Modules\Logger\spdlog\include\spdlog\spdlog.h" />
     <ClInclude Include="Modules\Logger\spdlog\include\spdlog\tweakme.h" />
+    <ClInclude Include="Modules\ObjectDataToRenderItemConverter\ObjectDataToRenderItemConverter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
