@@ -2,6 +2,7 @@
 #include <fbxsdk/fileio/fbximporter.h>
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "../Common/Common.h"
+#include <fbxsdk/scene/fbxaxissystem.h>
 
 GRPAppBegin
 FBXWrapper* FBXWrapper::m_instance = NULL;
@@ -54,6 +55,18 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 		return ResLoadStatus::LS_FAILED;
 	}
 
+	FbxAxisSystem dst_axis_system(FbxAxisSystem::eDirectX);
+	auto scene_axis_system = scene->GetGlobalSettings().GetAxisSystem();
+	if (scene_axis_system != dst_axis_system)
+	{
+		dst_axis_system.ConvertScene(scene);
+	}
+
+	FbxGeometryConverter geo_converter(m_manager);
+	geo_converter.Triangulate(scene, true);
+	geo_converter.SplitMeshesPerMaterial(scene, true);
+
+	int total_index_count = 0;
 	for (int i=0; i<root_node->GetChildCount(); ++i)
 	{
 		auto chid_node = root_node->GetChild(i);
@@ -70,8 +83,18 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 		auto object_data = std::make_unique<ObjectData>();
 
 		//mesh
-		auto mesh = (FbxMesh*)(chid_node->GetNodeAttribute());
+		auto mesh = chid_node->GetMesh();
 		auto vertices = mesh->GetControlPoints();
+		for (int j = 0; j < mesh->GetControlPointsCount(); ++j)
+		{
+			VertexData vertex;
+			vertex.Pos.x = (float)vertices[j].mData[0];
+			vertex.Pos.y = (float)vertices[j].mData[1];
+			vertex.Pos.z = (float)vertices[j].mData[2];
+			object_data->Mesh.Vertices.push_back(vertex);
+		}
+		
+
 		for (int j=0; j<mesh->GetPolygonCount(); ++j)
 		{
 			int vetex_num = mesh->GetPolygonSize(j);
@@ -80,15 +103,11 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 			for (int k=0; k<vetex_num; ++k)
 			{
 				int control_point_index = mesh->GetPolygonVertex(j, k);
-				VertexData vertex;
-				vertex.Pos.x = (float)vertices[control_point_index].mData[0];
-				vertex.Pos.y = (float)vertices[control_point_index].mData[1];
-				vertex.Pos.z = (float)vertices[control_point_index].mData[2];
-				object_data->Mesh.Vertices.push_back(vertex);
-				object_data->Mesh.Indices.push_back(control_point_index);
+				
+				object_data->Mesh.Indices.push_back(total_index_count + control_point_index);
 			}
 		}
-
+		total_index_count += mesh->GetControlPointsCount();
 		//mat
 // 		auto mat = (FbxSurfaceMaterial*)(chid_node->GetNodeAttribute());
 // 		if (NULL == mat)
