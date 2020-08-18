@@ -34,9 +34,9 @@ void App::LoadScene()
 	}
 	LogInfo(" Load Scene Success, file name : {}", m_scene_path);
 
-	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
-	
-	D3DApp::PushModels(converter->Result());
+ 	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
+ 	
+ 	D3DApp::PushModels(converter->Result());
 }
 
 void App::Debug()
