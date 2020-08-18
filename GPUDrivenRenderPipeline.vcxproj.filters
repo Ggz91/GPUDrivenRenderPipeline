@@ -69,9 +69,6 @@
     <ClCompile Include="Modules\Common\Camera.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Modules\Common\d3dApp.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="Modules\Common\d3dUtil.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -86,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="Modules\Common\MathHelper.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\App\d3dApp.cpp">
+      <Filter>App</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -377,9 +377,6 @@
     <ClInclude Include="Modules\Common\Camera.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Modules\Common\d3dApp.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Modules\Common\d3dUtil.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -400,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="Modules\Common\UploadBuffer.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\App\d3dApp.h">
+      <Filter>App</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

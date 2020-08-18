@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>F:\learning\dx_project_demo\GPUDrivenRenderPipeline\Modules\Logger\;$(IncludePath)</IncludePath>
+    <IncludePath>F:\learning\dx_project_demo\GPUDrivenRenderPipeline\Modules\Logger;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -91,7 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SPDLOG_COMPILED_LIB;FBXSDK_SHARED;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\software\fbx\2020.1\include;F:\learning\dx_project_demo\GPUDrivenRenderPipeline\InputDLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\software\fbx\2020.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -159,8 +159,8 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Modules\App\App.cpp" />
+    <ClCompile Include="Modules\App\d3dApp.cpp" />
     <ClCompile Include="Modules\Common\Camera.cpp" />
-    <ClCompile Include="Modules\Common\d3dApp.cpp" />
     <ClCompile Include="Modules\Common\d3dUtil.cpp" />
     <ClCompile Include="Modules\Common\DDSTextureLoader.cpp" />
     <ClCompile Include="Modules\Common\GameTimer.cpp" />
@@ -179,9 +179,9 @@
   <ItemGroup>
     <ClInclude Include="Interface\VoidEngineInterface.h" />
     <ClInclude Include="Modules\App\App.h" />
+    <ClInclude Include="Modules\App\d3dApp.h" />
     <ClInclude Include="Modules\Common\Camera.h" />
     <ClInclude Include="Modules\Common\Common.h" />
-    <ClInclude Include="Modules\Common\d3dApp.h" />
     <ClInclude Include="Modules\Common\d3dUtil.h" />
     <ClInclude Include="Modules\Common\d3dx12.h" />
     <ClInclude Include="Modules\Common\DDSTextureLoader.h" />
