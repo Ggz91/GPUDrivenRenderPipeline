@@ -39,7 +39,7 @@ struct SkinnedVertex
 struct MeshData
 {
 	std::vector<VertexData> Vertices;
-	std::vector<int> Indices;
+	std::vector<std::uint16_t> Indices;
 };
 
 struct ObjectData
