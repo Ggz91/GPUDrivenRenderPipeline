@@ -48,6 +48,13 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 	}
 	impoter->Destroy();
 
+	FbxAxisSystem dst_axis_system(FbxAxisSystem::eDirectX);
+	auto scene_axis_system = scene->GetGlobalSettings().GetAxisSystem();
+	if (scene_axis_system != dst_axis_system)
+	{
+		dst_axis_system.ConvertScene(scene);
+	}
+
 	auto root_node = scene->GetRootNode();
 	if (NULL == root_node)
 	{
@@ -55,12 +62,7 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 		return ResLoadStatus::LS_FAILED;
 	}
 
-	FbxAxisSystem dst_axis_system(FbxAxisSystem::eDirectX);
-	auto scene_axis_system = scene->GetGlobalSettings().GetAxisSystem();
-	if (scene_axis_system != dst_axis_system)
-	{
-		dst_axis_system.ConvertScene(scene);
-	}
+	
 
 	FbxGeometryConverter geo_converter(m_manager);
 	geo_converter.Triangulate(scene, true);
@@ -69,6 +71,10 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 	int total_index_count = 0;
 	for (int i=0; i<root_node->GetChildCount(); ++i)
 	{
+		if (i > 6)
+		{
+			break;
+		}
 		auto chid_node = root_node->GetChild(i);
 		if (NULL == chid_node || NULL == chid_node->GetNodeAttribute())
 		{
@@ -89,8 +95,8 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 		{
 			VertexData vertex;
 			vertex.Pos.x = (float)vertices[j].mData[0];
-			vertex.Pos.y = (float)vertices[j].mData[1];
-			vertex.Pos.z = (float)vertices[j].mData[2];
+			vertex.Pos.z = (float)vertices[j].mData[1];
+			vertex.Pos.y = (float)vertices[j].mData[2];
 			object_data->Mesh.Vertices.push_back(vertex);
 		}
 		
