@@ -39,6 +39,17 @@ void App::LoadScene()
 //  	
 //  	D3DApp::PushModels(converter->Result());
 
+	auto mat = std::make_unique<Material>();
+	mat->Name = "general";
+	mat->MatCBIndex = 0;
+	mat->DiffuseMapPath = "../Resource/Textures/bricks2.dds";
+	mat->NormalMapPath = "../Resource/Textures/bricks2_nmap.dds";
+	mat->DiffuseSrvHeapIndex = 0;
+	mat->NormalSrvHeapIndex = 1;
+	mat->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mat->FresnelR0 = XMFLOAT3(0.98f, 0.97f, 0.95f);
+	mat->Roughness = 0.1f;
+
 	auto gen = new GeometryGenerator;
 	std::vector<std::unique_ptr<ObjectData>> objects_data;
 	for (int i = 0; i < 1000; ++i)

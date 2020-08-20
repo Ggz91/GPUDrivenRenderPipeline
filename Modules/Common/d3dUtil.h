@@ -29,6 +29,8 @@
 #include "DDSTextureLoader.h"
 #include "MathHelper.h"
 
+extern const int gNumFrameResources;
+
 inline void d3dSetDebugName(IDXGIObject* obj, const char* name)
 {
     if(obj)
@@ -242,9 +244,11 @@ struct Material
 	// Index into constant buffer corresponding to this material.
 	int MatCBIndex = -1;
 
+	std::string DiffuseMapPath = "";
 	// Index into SRV heap for diffuse texture.
 	int DiffuseSrvHeapIndex = -1;
 
+	std::string NormalMapPath = "";
 	// Index into SRV heap for normal texture.
 	int NormalSrvHeapIndex = -1;
 
