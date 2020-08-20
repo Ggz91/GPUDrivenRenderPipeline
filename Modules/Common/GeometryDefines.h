@@ -3,19 +3,47 @@
 #include <windows.h>
 #include "MathHelper.h"
 
-struct MatData
+// Simple struct to represent a material for our demos.  A production 3D engine
+// would likely create a class hierarchy of Materials.
+struct Material
 {
+	// Unique material name for lookup.
+	std::string Name;
+
+	// Index into constant buffer corresponding to this material.
+	int MatCBIndex = -1;
+
+	std::string DiffuseMapPath = "";
+	// Index into SRV heap for diffuse texture.
+	int DiffuseSrvHeapIndex = -1;
+
+	std::string NormalMapPath = "";
+	// Index into SRV heap for normal texture.
+	int NormalSrvHeapIndex = -1;
+
+	// Dirty flag indicating the material has changed and we need to update the constant buffer.
+	// Because we have a material constant buffer for each FrameResource, we have to apply the
+	// update to each FrameResource.  Thus, when we modify a material we should set 
+	// NumFramesDirty = gNumFrameResources so that each frame resource gets the update.
+	int NumFramesDirty = 3;
+
+	// Material constant buffer data used for shading.
 	DirectX::XMFLOAT4 DiffuseAlbedo = { 1.0f, 1.0f, 1.0f, 1.0f };
 	DirectX::XMFLOAT3 FresnelR0 = { 0.01f, 0.01f, 0.01f };
-	float Roughness = 0.5f;
-
-	// Used in texture mapping.
+	float Roughness = .25f;
 	DirectX::XMFLOAT4X4 MatTransform = MathHelper::Identity4x4();
+};
 
-	UINT DiffuseMapIndex = 0;
-	UINT NormalMapIndex = 0;
-	UINT MaterialPad1;
-	UINT MaterialPad2;
+struct MatData
+{
+	DirectX::XMFLOAT4   DiffuseAlbedo;
+	DirectX::XMFLOAT3   FresnelR0;
+	float    Roughness;
+	DirectX::XMFLOAT4X4 MatTransform;
+	UINT     DiffuseMapIndex;
+	UINT     NormalMapIndex;
+	UINT     MatPad1;
+	UINT     MatPad2;
 };
 
 struct VertexData
@@ -45,7 +73,7 @@ struct MeshData
 struct ObjectData
 {
 	MeshData Mesh;
-	MatData Mat;
+	Material Mat;
 
 	ObjectData(ObjectData&& r)
 	{

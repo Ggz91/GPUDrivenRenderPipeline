@@ -7,6 +7,7 @@ using namespace DirectX;
 using namespace DirectX::PackedVector;
 
 struct ObjectData;
+struct Material;
 
 // Lightweight structure stores parameters to draw a shape.  This will
 // vary from app-to-app.

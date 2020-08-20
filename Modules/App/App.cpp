@@ -39,16 +39,16 @@ void App::LoadScene()
 //  	
 //  	D3DApp::PushModels(converter->Result());
 
-	auto mat = std::make_unique<Material>();
-	mat->Name = "general";
-	mat->MatCBIndex = 0;
-	mat->DiffuseMapPath = "../Resource/Textures/bricks2.dds";
-	mat->NormalMapPath = "../Resource/Textures/bricks2_nmap.dds";
-	mat->DiffuseSrvHeapIndex = 0;
-	mat->NormalSrvHeapIndex = 1;
-	mat->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	mat->FresnelR0 = XMFLOAT3(0.98f, 0.97f, 0.95f);
-	mat->Roughness = 0.1f;
+	Material mat;
+	mat.Name = "general";
+	mat.MatCBIndex = 0;
+	mat.DiffuseMapPath = "../Resources/Textures/bricks2.dds";
+	mat.NormalMapPath = "../Resources/Textures/bricks2_nmap.dds";
+	mat.DiffuseSrvHeapIndex = 0;
+	mat.NormalSrvHeapIndex = 1;
+	mat.DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mat.FresnelR0 = XMFLOAT3(0.98f, 0.97f, 0.95f);
+	mat.Roughness = 0.1f;
 
 	auto gen = new GeometryGenerator;
 	std::vector<std::unique_ptr<ObjectData>> objects_data;
@@ -85,6 +85,7 @@ void App::LoadScene()
 			data->Mesh.Vertices.push_back(vertex);
 		}
 		data->Mesh.Indices.insert(data->Mesh.Indices.end(), mesh.GetIndices16().begin(), mesh.GetIndices16().end());
+		data->Mat = mat;
 		objects_data.push_back(std::move(data));
 	}
 	
