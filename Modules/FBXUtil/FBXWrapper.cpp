@@ -89,6 +89,7 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 		auto object_data = std::make_unique<ObjectData>();
 
 		//mesh
+		geo_converter.Triangulate(chid_node->GetMesh(), true);
 		auto mesh = chid_node->GetMesh();
 		auto vertices = mesh->GetControlPoints();
 		for (int j = 0; j < mesh->GetControlPointsCount(); ++j)

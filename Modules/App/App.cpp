@@ -45,7 +45,7 @@ void App::LoadScene()
 	{
 		GeometryGenerator::MeshData mesh;
 		int type = std::rand() % 4;
-		LogInfo("[App Load Scene] Mesh Type : {}", type );
+		LogDebug("[App Load Scene] Mesh Type : {}", type );
 		switch (type)
 		{
 		case 2:
@@ -68,6 +68,9 @@ void App::LoadScene()
 		{
 			VertexData vertex;
 			vertex.Pos = mesh.Vertices[i].Position;
+			vertex.Normal = mesh.Vertices[i].Normal;
+			vertex.TangentU = mesh.Vertices[i].TangentU;
+			vertex.TexC = mesh.Vertices[i].TexC;
 			data->Mesh.Vertices.push_back(vertex);
 		}
 		data->Mesh.Indices.insert(data->Mesh.Indices.end(), mesh.GetIndices16().begin(), mesh.GetIndices16().end());

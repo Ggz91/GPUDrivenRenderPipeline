@@ -17,6 +17,10 @@ std::unique_ptr<GRPApp::LoggerWrapper> GRPApp::LoggerWrapper::m_instance;
 
 void GRPApp::LoggerWrapper::Init()
 {
+#ifdef __Debug
+	spdlog::set_level(spdlog::level::debug);
+#else
+#endif
 	//注册不同的log方式
 	auto console = spdlog::stdout_color_mt("console");
 	auto out_error = spdlog::stderr_color_mt("stderr");
