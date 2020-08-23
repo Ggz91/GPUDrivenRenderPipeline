@@ -2,8 +2,8 @@
 
 Texture2D g_buffer0            : register(t0);
 Texture2D g_buffer1        : register(t1);
-StructuredBuffer<MaterialData> mat_data : register(t0, space1);
-Texture2D textures[1] : register(t1, space1);
+StructuredBuffer<MaterialData> mats_data : register(t0, space1);
+Texture2D g_textures[2] : register(t1, space1);
 
 static const float2 gTexCoords[6] = 
 {
@@ -29,5 +29,14 @@ DeferredGSVertexOut ShadingVS(VertexIn input, uint vid : SV_VertexID)
 
 float4 ShadingPS(DeferredGSVertexOut input) : SV_TARGET0
 {
-    return float4(1.0f, 1.0f, 0.0f, 1.0f);
+	int mat_id = g_buffer1.SampleLevel(gsamPointClamp, input.TexC, 0.0f).a;
+	
+	clip(mat_id);
+
+	float4 normal_uv = g_buffer0.SampleLevel(gsamPointClamp, input.TexC, 0.0f);
+	float2 uv = normal_uv.zw;
+	MaterialData mat_data = mats_data[mat_id];
+	float4 diffuse_albedo = mat_data.DiffuseAlbedo * g_textures[mat_data.DiffuseMapIndex].Sample(gsamAnisotropicWrap, uv);
+    return diffuse_albedo;
+	
 }
