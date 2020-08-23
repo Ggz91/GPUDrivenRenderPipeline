@@ -39,9 +39,9 @@ cbuffer cbPass : register(b1)
     Light gLights[MaxLights];
 };
 
-DeferredVertexOut DeferredVS(VertexIn vin)
+DeferredGSVertexOut DeferredGSVS(VertexIn vin)
 {
-	DeferredVertexOut vout = (DeferredVertexOut)0.0f;
+	DeferredGSVertexOut vout = (DeferredGSVertexOut)0.0f;
 
 	// Fetch the material data.
     // Transform to world space.
@@ -60,9 +60,9 @@ DeferredVertexOut DeferredVS(VertexIn vin)
     return vout;
 }
 
-DeferredPixelOut DeferredPS(DeferredVertexOut pin)
+DeferredGSPixelOut DeferredGSPS(DeferredGSVertexOut pin)
 {
-    DeferredPixelOut res;
+    DeferredGSPixelOut res;
     res.Normal_UV.x = pin.NormalW.x;
     res.Normal_UV.y = pin.NormalW.y;
     res.Normal_UV.z = pin.TexC.x;

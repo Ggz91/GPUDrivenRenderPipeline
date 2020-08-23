@@ -56,19 +56,24 @@ struct VertexOut
 	float2 TexC    : TEXCOORD;
 };
 
-struct DeferredVertexOut
+struct DeferredGSVertexOut
 {
 	float4 PosH    : SV_POSITION;
     float3 NormalW : NORMAL;
 	float2 TexC    : TEXCOORD;
 };
 
-struct DeferredPixelOut
+struct DeferredGSPixelOut
 {
    float4 Normal_UV: SV_Target0;
    uint Mat_ID: SV_Target1;
 };
 
+struct DeferredShadingVertexOut
+{
+	float4 PosH    : SV_POSITION;
+	float2 TexC    : TEXCOORD;
+};
 
 //---------------------------------------------------------------------------------------
 // Transforms a normal map sample to world space.
