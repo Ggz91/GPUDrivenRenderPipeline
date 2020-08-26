@@ -65,7 +65,7 @@ struct DeferredGSVertexOut
 
 struct DeferredGSPixelOut
 {
-   float4 Normal_UV: SV_Target0;
+   float4 Normal_UV_Depth: SV_Target0;
    uint Mat_ID: SV_Target1;
 };
 
@@ -133,3 +133,70 @@ float3 NormalSampleToWorldSpace(float3 normalMapSample, float3 unitNormalW, floa
     return percentLit / 9.0f;
 }*/
 
+#define TWO_15_POWER 32768
+#define TWO_16_POWER 65536
+
+float4 UnpackNormal(float2 normal)
+{
+    float4 res = float4(normal.xy, 0, 1);
+    res.z = sqrt(1 - res.x * res.x - res.y * res.y);
+    res = normalize(res);
+    return res;
+}
+
+uint CodeNormal(float2 normal)
+{
+    normal = normalize(normal);
+    uint normal_x = (uint)(abs(frac(normal.x)) * TWO_15_POWER) << 16 + 1 << 31;
+    normal_x &= normal.x < 0?  0xffff0000 : 0x7fff0000; 
+    uint normal_y = (uint)(abs(frac(normal.y)) * TWO_15_POWER)  + (1 << 15);
+    normal_y &= normal.y < 0 ? 0x0000ffff : 0x00007fff;
+    return (normal_x + normal_y);
+}
+
+float2 DecodeNormal(uint code_normal)
+{
+    uint normal_x = code_normal & 0x7fff0000;
+    uint normal_y = code_normal & 0x00007fff;
+    float2 res;
+    res.x = (float)(normal_x >> 16) / TWO_15_POWER;
+    res.y = (float)(normal_y) / TWO_15_POWER;
+    res.x *= (code_normal & (1 << 31) <=0 ? 1 : -1);
+    res.y *= (code_normal & (1 << 15) <=0 ? 1 : -1);
+    return res;
+}
+
+uint CodeUV(float2 uv)
+{
+    //把uv坐标变换到[0,1]范围内，不考虑正负
+    if(uv.x < 0)
+    {
+        uv.x = 1 + frac(uv.x);
+    }
+    if(uv.y < 0)
+    {
+        uv.y = 1+ frac(uv.y);
+    }
+    uint uv_x = (uint)(abs(frac(uv.x)) * TWO_16_POWER) << 16 ;
+    uint uv_y = (uint)(abs(frac(uv.y)) * TWO_16_POWER) ;
+    return (uv_x + uv_y);
+}
+
+float2 DecodeUV(uint uint_uv)
+{
+    float2 res;
+    res.x = ((uint_uv & 0xffff0000) >> 16) * 1.0f / TWO_16_POWER;
+    res.y = (uint_uv & 0x0000ffff) * 1.0f / TWO_16_POWER;
+    return res;
+}
+
+uint CodeDepth(float depth)
+{
+    return (uint)((depth + 1) / 2 * TWO_16_POWER); 
+}
+
+float DecodeDepth(uint depth)
+{
+    float frac = depth * 1.0f / TWO_16_POWER;
+    return 2 * frac - 1;
+}
