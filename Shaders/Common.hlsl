@@ -139,19 +139,23 @@ float3 NormalSampleToWorldSpace(float3 normalMapSample, float3 unitNormalW, floa
 
 float4 UnpackNormal(float2 normal)
 {
-    float4 res = float4(normal.xy, 0, 1);
-    res.z = sqrt(1 - saturate(dot(normal.xy, normal.xy)));
-    res = normalize(res);
+    float denom = 2 / (1 + normal.x * normal.x + normal.y * normal.y);
+    float4 res;
+    res.x = normal.x * denom;
+    res.y = normal.y * denom;
+    res.z = denom - 1;
+    res.w = 1;
     return res;
 }
 
-uint CodeNormal(float2 normal)
+uint CodeNormal(float3 normal)
 {
-    normal = normalize(normal);
-    uint normal_x = (uint)(abs(frac(normal.x)) * TWO_15_POWER) << 16 + 1 << 31;
-    normal_x &= normal.x < 0?  0xffff0000 : 0x7fff0000; 
-    uint normal_y = (uint)(abs(frac(normal.y)) * TWO_15_POWER)  + (1 << 15);
-    normal_y &= normal.y < 0 ? 0x0000ffff : 0x00007fff;
+    float x = normal.x / (1 + normal.z);
+    float y = normal.y / (1 + normal.z);
+    uint normal_x = (uint)(abs(x) * TWO_15_POWER) << 16 + (1 << 31);
+    normal_x &= x < 0 ? 0xffff0000 : 0x7fff0000; 
+    uint normal_y = (uint)(abs(y) * TWO_15_POWER)  + (1 << 15);
+    normal_y &= y < 0 ? 0x0000ffff : 0x00007fff;
     return (normal_x + normal_y);
 }
 
@@ -160,10 +164,10 @@ float2 DecodeNormal(uint code_normal)
     uint normal_x = code_normal & 0x7fff0000;
     uint normal_y = code_normal & 0x00007fff;
     float2 res;
-    res.x = (float)(normal_x >> 16) / TWO_15_POWER;
-    res.y = (float)(normal_y) / TWO_15_POWER;
-    res.x *= (code_normal & (1 << 31) <=0 ? 1 : -1);
-    res.y *= (code_normal & (1 << 15) <=0 ? 1 : -1);
+    res.x = (normal_x >> 16) * 1.0f/ TWO_15_POWER;
+    res.y = (normal_y) * 1.0f / TWO_15_POWER;
+    res.x *= ((code_normal & (1 << 31)) <=0 ? 1 : -1);
+    res.y *= ((code_normal & (1 << 15)) <=0 ? 1 : -1);
     return res;
 }
 
