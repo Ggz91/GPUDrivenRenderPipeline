@@ -46,6 +46,7 @@ DeferredGSVertexOut DeferredGSVS(VertexIn vin)
     float4 posW = mul(float4(vin.PosL, 1.0f), gWorld);
 
     vout.NormalW = mul(vin.NormalL, (float3x3)gWorld);
+	vout.TangentW = mul(vin.TangentL, (float3x3)gWorld);
     vout.PosH = mul(posW, gViewProj);
 
 	vout.TexC = vin.TexC;
@@ -55,10 +56,11 @@ DeferredGSVertexOut DeferredGSVS(VertexIn vin)
 
 DeferredGSPixelOut DeferredGSPS(DeferredGSVertexOut pin)
 {
-    DeferredGSPixelOut res = (DeferredGSPixelOut) 0.0f;
+    DeferredGSPixelOut res = (DeferredGSPixelOut) 0;
     res.Normal_UV_Depth.x = CodeNormal(pin.NormalW.xy);
-    res.Normal_UV_Depth.y = CodeUV(pin.TexC);
-    res.Normal_UV_Depth.z = CodeDepth(pin.PosH.z / pin.PosH.w);
+    res.Normal_UV_Depth.y = CodeNormal(pin.TangentW.xy);
+    res.Normal_UV_Depth.z = CodeUV(pin.TexC);
+    res.Normal_UV_Depth.w = CodeDepth(pin.PosH.z);
     res.Mat_ID = gMaterialIndex;
     return res;
 }

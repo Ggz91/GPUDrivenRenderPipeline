@@ -60,12 +60,13 @@ struct DeferredGSVertexOut
 {
 	float4 PosH    : SV_POSITION;
     float3 NormalW : NORMAL;
+	float3 TangentW : TANGENT;
 	float2 TexC    : TEXCOORD;
 };
 
 struct DeferredGSPixelOut
 {
-   float4 Normal_UV_Depth: SV_Target0;
+   uint4 Normal_UV_Depth: SV_Target0;
    uint Mat_ID: SV_Target1;
 };
 
@@ -139,7 +140,7 @@ float3 NormalSampleToWorldSpace(float3 normalMapSample, float3 unitNormalW, floa
 float4 UnpackNormal(float2 normal)
 {
     float4 res = float4(normal.xy, 0, 1);
-    res.z = sqrt(1 - res.x * res.x - res.y * res.y);
+    res.z = sqrt(1 - saturate(dot(normal.xy, normal.xy)));
     res = normalize(res);
     return res;
 }
@@ -192,11 +193,11 @@ float2 DecodeUV(uint uint_uv)
 
 uint CodeDepth(float depth)
 {
-    return (uint)((depth + 1) / 2 * TWO_16_POWER); 
+    return (uint)(depth * TWO_16_POWER); 
 }
 
 float DecodeDepth(uint depth)
 {
     float frac = depth * 1.0f / TWO_16_POWER;
-    return 2 * frac - 1;
+    return frac;
 }
