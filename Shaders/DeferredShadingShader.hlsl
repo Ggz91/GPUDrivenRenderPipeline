@@ -89,7 +89,7 @@ float4 ShadingPS(DeferredGSVertexOut input) : SV_TARGET0
 
 	float4 diffuse_albedo = mat_data.DiffuseAlbedo * g_textures[mat_data.DiffuseMapIndex].Sample(gsamAnisotropicWrap, uv);
 	float4 normal_map_sample = g_textures[mat_data.NormalMapIndex].Sample(gsamAnisotropicWrap, uv);
-	float3 bumped_normal_ws = NormalSampleToWorldSpace(normal_map_sample.rgb, normal_vertex.rgb, tangent_vertex);
+	float3 bumped_normal_ws = NormalSampleToWorldSpace(normal_map_sample.rgb, normal_vertex.rgb, tangent_vertex.rgb);
 	float z_ws = MapHZToWZ(DecodeDepth(normal_uv_depth.w));
 	float4 ndc_cor = float4((2 * input.TexC.x - 1) * z_ws, (2 * input.TexC.y - 1) * z_ws, normal_uv_depth.z, z_ws);
 	float3 pos_ws = MapNDCCorToWorldCor(ndc_cor);

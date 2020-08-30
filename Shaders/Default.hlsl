@@ -42,23 +42,6 @@ cbuffer cbPass : register(b1)
 Texture2D gTextureMaps[1] : register(t0);
 StructuredBuffer<MaterialData> gMaterialData : register(t0, space1);
 
-struct VertexIn
-{
-	float3 PosL    : POSITION;
-    float3 NormalL : NORMAL;
-	float2 TexC    : TEXCOORD;
-	float3 TangentL : TANGENT;
-};
-
-struct VertexOut
-{
-	float4 PosH    : SV_POSITION;
-    float3 PosW    : POSITION2;
-    float3 NormalW : NORMAL;
-	float3 TangentW : TANGENT;
-	float2 TexC    : TEXCOORD;
-};
-
 VertexOut VS(VertexIn vin)
 {
 	VertexOut vout = (VertexOut)0.0f;
