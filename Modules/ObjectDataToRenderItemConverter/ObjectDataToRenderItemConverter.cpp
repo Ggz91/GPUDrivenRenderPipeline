@@ -21,6 +21,7 @@ std::vector<RenderItem*> ObjectDataToRenderItemConverter::Result()
 		render_item->IndexCount = data->Mesh.Indices.size();
 		render_item->Data = data.get();
 		render_item->World = data->World;
+		render_item->Bounds = data->Bounds;
 		res.push_back(render_item.release());
 	}
 	return res;

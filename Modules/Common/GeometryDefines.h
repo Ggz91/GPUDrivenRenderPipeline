@@ -70,11 +70,18 @@ struct MeshData
 	std::vector<std::uint16_t> Indices;
 };
 
+struct  AABB
+{
+	DirectX::XMFLOAT3 MinVertex;
+	DirectX::XMFLOAT3 MaxVertex;
+};
+
 struct ObjectData
 {
 	MeshData Mesh;
 	Material Mat;
 	DirectX::XMFLOAT4X4 World = MathHelper::Identity4x4();
+	AABB Bounds;
 
 	ObjectData(ObjectData&& r)
 	{

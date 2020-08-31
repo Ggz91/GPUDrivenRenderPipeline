@@ -1,6 +1,7 @@
 #pragma once
 
 #include "d3dUtil.h"
+#include "GeometryDefines.h"
 
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;
@@ -44,6 +45,7 @@ struct RenderItem
 	int BaseVertexLocation = 0;
 
 	ObjectData* Data;
+	AABB Bounds;
 };
 
 enum class RenderLayer : int

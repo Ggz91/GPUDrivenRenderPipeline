@@ -49,7 +49,7 @@ void App::LoadScene()
 	mat.NormalSrvHeapIndex = 1;
 	mat.DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.FresnelR0 = XMFLOAT3(0.98f, 0.97f, 0.95f);
-	mat.Roughness = 0.1f;
+	mat.Roughness = 0.8f;
 
 	auto gen = new GeometryGenerator;
 	std::vector<std::unique_ptr<ObjectData>> objects_data;
@@ -57,21 +57,45 @@ void App::LoadScene()
 	{
 		GeometryGenerator::MeshData mesh;
 		int type = std::rand() % 4;
+		AABB bounds;
 		LogDebug("[App Load Scene] Mesh Type : {}", type );
 		switch (type)
 		{
-		case 2:
-			mesh = gen->CreateBox(std::rand()%100, std::rand()%100, std::rand()%100, 3);
-			break;
-		case 1:
- 			mesh = gen->CreateGeosphere(std::rand() % 100, 3);
- 			break;
 		case 0:
-			mesh = gen->CreateSphere(std::rand() % 100, 10, 10);
+		{
+			float radius = std::rand() % 100;
+			mesh = gen->CreateSphere(radius, 10, 10);
+			bounds.MinVertex = XMFLOAT3(-radius, -radius, -radius);
+			bounds.MaxVertex = XMFLOAT3(radius, radius, radius);
 			break;
+		}
+		case 1:
+		{
+			float radius = std::rand() % 100;
+			mesh = gen->CreateGeosphere(radius, 3);
+			bounds.MinVertex = XMFLOAT3(-radius, -radius, -radius);
+			bounds.MaxVertex = XMFLOAT3(radius, radius, radius); break;
+		}
+		case 2:
+		{
+			float width = std::rand() % 100;
+			float height = std::rand() % 100;
+			float depth = std::rand() % 100;
+			mesh = gen->CreateBox(width, height, depth, 3);
+			bounds.MinVertex = XMFLOAT3(-width / 2, -height / 2, -depth / 2);
+			bounds.MaxVertex = XMFLOAT3(width / 2, height / 2, depth / 2);
+			break;
+		}
 		case 3:
-			mesh = gen->CreateCylinder(std::rand()%100, std::rand()%100, std::rand()%100, 20, 20);
+		{
+			float bottom_radius = std::rand() % 100;
+			float top_radius = std::rand() % 100;
+			float height = std::rand() % 100;
+			mesh = gen->CreateCylinder(bottom_radius, top_radius, height, 20, 20);
+			bounds.MinVertex = XMFLOAT3(-bottom_radius, -height/2, -bottom_radius);
+			bounds.MaxVertex = XMFLOAT3(bottom_radius, height/2, bottom_radius);
 			break;
+		}
 		default:
 			break;
 		}
@@ -87,6 +111,7 @@ void App::LoadScene()
 		}
 		data->Mesh.Indices.insert(data->Mesh.Indices.end(), mesh.GetIndices16().begin(), mesh.GetIndices16().end());
 		data->Mat = mat;
+		data->Bounds = bounds;
 		XMStoreFloat4x4(&data->World, XMMatrixTranslation(std::rand() % 10000 * (std::rand() % 2 ? 1 : -1), std::rand() % 100, -std::rand() % 10000));
 		objects_data.push_back(std::move(data));
 	}
