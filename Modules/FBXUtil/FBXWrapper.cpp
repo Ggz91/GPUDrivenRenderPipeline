@@ -1,6 +1,7 @@
 #include "FBXWrapper.h"
 #include <fbxsdk/fileio/fbximporter.h>
 #include "spdlog/sinks/stdout_color_sinks.h"
+
 #include "../Common/Common.h"
 #include <fbxsdk/scene/fbxaxissystem.h>
 
@@ -66,7 +67,6 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 
 	FbxGeometryConverter geo_converter(m_manager);
 	geo_converter.Triangulate(scene, true);
-	geo_converter.SplitMeshesPerMaterial(scene, true);
 
 	int total_index_count = 0;
 	for (int i=0; i<root_node->GetChildCount(); ++i)
@@ -89,16 +89,17 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 		auto object_data = std::make_unique<ObjectData>();
 
 		//mesh
-		geo_converter.Triangulate(chid_node->GetMesh(), true);
 		auto mesh = chid_node->GetMesh();
 		auto vertices = mesh->GetControlPoints();
+		FbxDouble3 scale = chid_node->LclScaling.Get();
 		for (int j = 0; j < mesh->GetControlPointsCount(); ++j)
 		{
 			VertexData vertex;
-			vertex.Pos.x = (float)vertices[j].mData[0];
-			vertex.Pos.z = (float)vertices[j].mData[1];
-			vertex.Pos.y = (float)vertices[j].mData[2];
+			vertex.Pos.x = (float)vertices[j].mData[0] * scale[0];
+			vertex.Pos.y = (float)vertices[j].mData[2] * scale[2];
+			vertex.Pos.z = (float)vertices[j].mData[1] * scale[1];
 			object_data->Mesh.Vertices.push_back(vertex);
+			//LogDebug("[FBX Load Mesh] Mesh vertex index : {}", object_data->Mesh.Vertices.size() - 1 );
 		}
 		
 
@@ -112,9 +113,10 @@ ResLoadStatus FBXWrapper::LoadScene(std::string file_name, std::vector<std::uniq
 				int control_point_index = mesh->GetPolygonVertex(j, k);
 				
 				object_data->Mesh.Indices.push_back(total_index_count + control_point_index);
+				//LogDebug("[FBX Load Mesh] Mesh index : {}", total_index_count + control_point_index);
 			}
 		}
-		total_index_count += mesh->GetControlPointsCount();
+		total_index_count += mesh->GetPolygonCount() * 3;
 		//mat
 // 		auto mat = (FbxSurfaceMaterial*)(chid_node->GetNodeAttribute());
 // 		if (NULL == mat)

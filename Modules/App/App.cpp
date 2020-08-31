@@ -4,6 +4,7 @@
 #include "../Common/RenderItems.h"
 #include "../ObjectDataToRenderItemConverter/ObjectDataToRenderItemConverter.h"
 #include "../Common/GeometryGenerator.h"
+#include "../../Interface/VoidEngineInterface.h"
 
 GRPAppBegin
 
@@ -86,11 +87,41 @@ void App::LoadScene()
 		}
 		data->Mesh.Indices.insert(data->Mesh.Indices.end(), mesh.GetIndices16().begin(), mesh.GetIndices16().end());
 		data->Mat = mat;
+		XMStoreFloat4x4(&data->World, XMMatrixTranslation(std::rand() % 10000 * (std::rand() % 2 ? 1 : -1), std::rand() % 100, -std::rand() % 10000));
 		objects_data.push_back(std::move(data));
 	}
 	
 	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
 	D3DApp::PushModels(converter->Result());
+}
+
+void App::OnMouseDown(WPARAM btnState, int x, int y)
+{
+	mLastMousePos.x = x;
+	mLastMousePos.y = y;
+
+	SetCapture(mhMainWnd);
+}
+
+void App::OnMouseUp(WPARAM btnState, int x, int y)
+{
+	ReleaseCapture();
+}
+
+void App::OnMouseMove(WPARAM btnState, int x, int y)
+{
+	if ((btnState & MK_LBUTTON) != 0)
+	{
+		// Make each pixel correspond to a quarter of a degree.
+		float dx = XMConvertToRadians(0.25f * static_cast<float>(x - mLastMousePos.x));
+		float dy = XMConvertToRadians(0.25f * static_cast<float>(y - mLastMousePos.y));
+
+		m_ptr_engine->PitchCamera(dy);
+		m_ptr_engine->RotateCameraY(dx);
+	}
+
+	mLastMousePos.x = x;
+	mLastMousePos.y = y;
 }
 
 void App::Debug()

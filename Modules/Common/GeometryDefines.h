@@ -74,6 +74,7 @@ struct ObjectData
 {
 	MeshData Mesh;
 	Material Mat;
+	DirectX::XMFLOAT4X4 World = MathHelper::Identity4x4();
 
 	ObjectData(ObjectData&& r)
 	{

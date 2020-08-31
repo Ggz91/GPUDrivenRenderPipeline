@@ -1,6 +1,7 @@
 #include "LoggerWrapper.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/sinks/basic_file_sink.h"
 
 GRPAppBegin
 
@@ -25,6 +26,8 @@ void GRPApp::LoggerWrapper::Init()
 	auto console = spdlog::stdout_color_mt("console");
 	auto out_error = spdlog::stderr_color_mt("stderr");
 
+	auto file_logger = spdlog::basic_logger_mt("file_logger", "logs.txt");
+	spdlog::set_default_logger(file_logger);
 }
 
 GRPApp::LoggerWrapper::LoggerWrapper()
