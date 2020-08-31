@@ -16,8 +16,13 @@ protected:
 	void Update(const GameTimer& gt) override;
 	void Draw(const GameTimer& gt) override;
 	void LoadScene();
+	virtual void OnMouseDown(WPARAM btnState, int x, int y);
+	virtual void OnMouseUp(WPARAM btnState, int x, int y);
+	virtual void OnMouseMove(WPARAM btnState, int x, int y);
 private:
 	const std::string m_scene_path = "../Resources/City/Fbx.FBX";
+	POINT mLastMousePos;
+
 };
 
 GRPAppEnd

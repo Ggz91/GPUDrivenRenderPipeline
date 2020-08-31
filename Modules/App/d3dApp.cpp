@@ -109,6 +109,8 @@ void D3DApp::OnResize()
  
 void D3DApp::Update(const GameTimer& gt)
 {
+	OnKeyboardInput(gt);
+
 	m_ptr_engine->Update(gt);
 }
 
@@ -250,6 +252,23 @@ LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 
 	return DefWindowProc(hwnd, msg, wParam, lParam);
+}
+
+void D3DApp::OnKeyboardInput(const GameTimer& gt)
+{
+	const float dt = gt.DeltaTime();
+	const float speed = 100.0f;
+	if (GetAsyncKeyState('W') & 0x8000)
+		m_ptr_engine->MoveCamera(speed * dt);
+
+	if (GetAsyncKeyState('S') & 0x8000)
+		m_ptr_engine->MoveCamera(-speed * dt);
+
+	if (GetAsyncKeyState('A') & 0x8000)
+		m_ptr_engine->StrafeCamera(-speed * dt);
+
+	if (GetAsyncKeyState('D') & 0x8000)
+		m_ptr_engine->StrafeCamera(speed * dt);
 }
 
 bool D3DApp::InitMainWindow()

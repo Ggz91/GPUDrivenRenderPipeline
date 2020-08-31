@@ -31,24 +31,28 @@ template<typename Fmt, typename... Args>
 void GRPApp::LoggerWrapper::LogError(Fmt&& fmt, Args&&... args)
 {
 	spdlog::get("console")->error(fmt, args...);
+	spdlog::get("file_logger")->error(fmt, args...);
 }
 
 template<typename Fmt, typename... Args>
 void GRPApp::LoggerWrapper::LogWarning(Fmt&& fmt, Args&&... args)
 {
 	spdlog::get("console")->warn(fmt, args...);
+	spdlog::get("file_logger")->warn(fmt, args...);
 }
 
 template<typename Fmt, typename... Args>
 void GRPApp::LoggerWrapper::LogDebug(Fmt&& fmt,Args&&... args)
 {
 	spdlog::get("console")->debug(fmt, args...);
+	spdlog::get("file_logger")->debug(fmt, args...);
 }
 
 template<typename Fmt, typename... Args>
 void GRPApp::LoggerWrapper::LogInfo(Fmt&& fmt, Args&&... args)
 {
 	spdlog::get("console")->info(fmt, args...);
+	spdlog::get("file_logger")->info(fmt, args...);
 }
 
 #define  Logger LoggerWrapper::Instance()
