@@ -19,9 +19,9 @@ std::vector<RenderItem*> ObjectDataToRenderItemConverter::Result()
 		auto render_item = std::make_unique<RenderItem>();
 		render_item->ObjCBIndex = i;
 		render_item->IndexCount = data->Mesh.Indices.size();
-		render_item->Data = data.get();
 		render_item->World = data->World;
 		render_item->Bounds = data->Bounds;
+		render_item->Data = *(data.get());
 		res.push_back(render_item.release());
 	}
 	return res;

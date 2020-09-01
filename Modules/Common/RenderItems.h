@@ -44,8 +44,17 @@ struct RenderItem
 	UINT StartIndexLocation = 0;
 	int BaseVertexLocation = 0;
 
-	ObjectData* Data;
+	ObjectData Data;
 	AABB Bounds;
+
+	~RenderItem()
+	{
+		if (NULL == Mat)
+		{
+			delete Mat;
+			Mat = NULL;
+		}
+	}
 };
 
 enum class RenderLayer : int

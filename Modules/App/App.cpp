@@ -58,7 +58,7 @@ void App::LoadScene()
 		GeometryGenerator::MeshData mesh;
 		int type = std::rand() % 4;
 		AABB bounds;
-		LogDebug("[App Load Scene] Mesh Type : {}", type );
+		//LogDebug("[App Load Scene] Mesh Type : {}", type );
 		switch (type)
 		{
 		case 0:
