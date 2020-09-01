@@ -63,7 +63,7 @@ void App::LoadScene()
 		{
 		case 0:
 		{
-			float radius = std::rand() % 100;
+			float radius = std::rand() % 100 + 0.01;
 			mesh = gen->CreateSphere(radius, 10, 10);
 			bounds.MinVertex = XMFLOAT3(-radius, -radius, -radius);
 			bounds.MaxVertex = XMFLOAT3(radius, radius, radius);
@@ -71,16 +71,16 @@ void App::LoadScene()
 		}
 		case 1:
 		{
-			float radius = std::rand() % 100;
+			float radius = std::rand() % 100 + 0.01;
 			mesh = gen->CreateGeosphere(radius, 3);
 			bounds.MinVertex = XMFLOAT3(-radius, -radius, -radius);
 			bounds.MaxVertex = XMFLOAT3(radius, radius, radius); break;
 		}
 		case 2:
 		{
-			float width = std::rand() % 100;
-			float height = std::rand() % 100;
-			float depth = std::rand() % 100;
+			float width = std::rand() % 100 + 0.01;
+			float height = std::rand() % 100 + 0.01;
+			float depth = std::rand() % 100 + 0.01;
 			mesh = gen->CreateBox(width, height, depth, 3);
 			bounds.MinVertex = XMFLOAT3(-width / 2, -height / 2, -depth / 2);
 			bounds.MaxVertex = XMFLOAT3(width / 2, height / 2, depth / 2);
@@ -88,9 +88,9 @@ void App::LoadScene()
 		}
 		case 3:
 		{
-			float bottom_radius = std::rand() % 100;
-			float top_radius = std::rand() % 100;
-			float height = std::rand() % 100;
+			float bottom_radius = std::rand() % 100 + 0.01;
+			float top_radius = std::rand() % 100 + 0.01;
+			float height = std::rand() % 100 + 0.01;
 			mesh = gen->CreateCylinder(bottom_radius, top_radius, height, 20, 20);
 			bounds.MinVertex = XMFLOAT3(-bottom_radius, -height/2, -bottom_radius);
 			bounds.MaxVertex = XMFLOAT3(bottom_radius, height/2, bottom_radius);

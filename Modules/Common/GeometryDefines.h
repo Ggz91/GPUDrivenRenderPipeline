@@ -104,3 +104,12 @@ struct ObjectData
 	ObjectData(ObjectData& r) = delete;
 	ObjectData& operator=(const ObjectData& r) = delete;
 };
+
+struct Frustum
+{
+	float NearZ;
+	float FarZ;
+	float Aspect;
+	float FovY;
+	float FovX;
+};
