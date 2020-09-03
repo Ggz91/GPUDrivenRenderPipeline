@@ -16,6 +16,8 @@
 #include <windows.h>
 #include <vector>
 
+#define  __ZBuffer_Rendering
+
 struct RenderItem;
 
 extern "C" class EngineDLL IEngineWrapper
