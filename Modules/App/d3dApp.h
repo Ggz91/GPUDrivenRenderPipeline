@@ -87,8 +87,8 @@ protected:
 	// Derived class should set these in derived constructor to customize starting values.
 	std::wstring mMainWndCaption = L"d3d App";
 	D3D_DRIVER_TYPE md3dDriverType = D3D_DRIVER_TYPE_HARDWARE;
-	int mClientWidth = 800;
-	int mClientHeight = 600;
+	int mClientWidth = 1024;
+	int mClientHeight = 1024;
 
 	//ÒýÇæ½Ó¿Ú
 	IEngineWrapper* m_ptr_engine;

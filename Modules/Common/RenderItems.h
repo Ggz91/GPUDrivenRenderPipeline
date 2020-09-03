@@ -59,7 +59,8 @@ struct RenderItem
 
 enum class RenderLayer : int
 {
-	Opaque = 0,
+	Occluder = 0,
+	Opaque,
 	SkinnedOpaque,
 	Debug,
 	Sky,
