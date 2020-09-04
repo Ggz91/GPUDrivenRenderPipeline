@@ -58,7 +58,7 @@ struct VertexOut
 
 struct DepthVertexOut
 {
-	float4 PosH    : SV_POSITION;
+    float4 PosH : POSITION1;
 };
 
 struct DeferredGSVertexOut

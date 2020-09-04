@@ -40,17 +40,18 @@ cbuffer cbPass : register(b1)
 };
 
 
-DepthVertexOut DepthVS(VertexIn vin)
+DepthVertexOut DepthVS(VertexIn vin, out float4 pos_h : SV_POSITION)
 {
 	DepthVertexOut vout = (DepthVertexOut)0.0f;
 
     float4 posW = mul(float4(vin.PosL, 1.0f), gWorld);
     vout.PosH = mul(posW, gViewProj);
+    pos_h = vout.PosH;
     return vout;
 }
 
-void DepthPS(DepthVertexOut pin)
+float DepthPS(DepthVertexOut pin) : SV_TARGET
 {
-    return ;
+    return pin.PosH.z / pin.PosH.w;
 }
 
