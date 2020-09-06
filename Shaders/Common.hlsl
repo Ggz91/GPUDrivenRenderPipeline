@@ -56,6 +56,11 @@ struct VertexOut
 	float2 TexC    : TEXCOORD;
 };
 
+struct DepthVertexOut
+{
+    float4 PosH : POSITION1;
+};
+
 struct DeferredGSVertexOut
 {
 	float4 PosH    : SV_POSITION;
