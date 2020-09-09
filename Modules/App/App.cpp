@@ -1,4 +1,4 @@
-#include "App.h"
+﻿#include "App.h"
 #include "../Common/Common.h"
 #include "../FBXUtil/FBXWrapper.h"
 #include "../Common/RenderItems.h"
@@ -11,6 +11,18 @@ GRPAppBegin
 App::App(HINSTANCE instance) : D3DApp(instance)
 {
 
+}
+
+GRPApp::App::~App()
+{
+	if (!m_loaded_render_items.empty())
+	{
+		for (int i=0; i<m_loaded_render_items.size(); ++i)
+		{
+			DELETE_PTR(m_loaded_render_items[i]->Mat);
+			DELETE_PTR(m_loaded_render_items[i]);
+		}
+	}
 }
 
 void App::Update(const GameTimer& gt)
@@ -39,6 +51,7 @@ void App::LoadScene()
 //  	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
 //  	
 //  	D3DApp::PushModels(converter->Result());
+
 
 	Material mat;
 	mat.Name = "general";
@@ -118,7 +131,8 @@ void App::LoadScene()
 	}
 	
 	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
-	D3DApp::PushModels(converter->Result());
+	converter->GetResult(m_loaded_render_items);
+	D3DApp::PushModels(m_loaded_render_items);
 }
 
 void App::OnMouseDown(WPARAM btnState, int x, int y)

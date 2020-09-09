@@ -10,6 +10,7 @@ class App : public D3DApp
 {
 public:
 	App(HINSTANCE instance);
+	~App();
 	virtual void Debug() override;
 	virtual bool Initialize() override;
 protected:
@@ -23,6 +24,7 @@ private:
 	const std::string m_scene_path = "../Resources/City/Fbx.FBX";
 	POINT mLastMousePos;
 
+	std::vector<RenderItem*> m_loaded_render_items;
 };
 
 GRPAppEnd

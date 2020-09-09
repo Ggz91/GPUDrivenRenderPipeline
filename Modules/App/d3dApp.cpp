@@ -329,7 +329,7 @@ bool D3DApp::InitResources()
 	return m_ptr_engine->Init();
 }
 
-bool D3DApp::PushModels(std::vector<RenderItem*>&& render_items)
+bool D3DApp::PushModels(std::vector<RenderItem*>& render_items)
 {
 	m_ptr_engine->PushModels(render_items);
 	return true;

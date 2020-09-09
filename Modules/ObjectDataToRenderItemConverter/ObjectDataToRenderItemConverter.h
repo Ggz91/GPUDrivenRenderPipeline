@@ -14,7 +14,7 @@ public:
 	ObjectDataToRenderItemConverter(std::vector<std::unique_ptr<ObjectData>>* object_data);
 	~ObjectDataToRenderItemConverter();
 
-	std::vector<RenderItem*> Result();
+	void GetResult(std::vector<RenderItem*>& res);
 private:
 	std::vector<std::unique_ptr<ObjectData>>* m_ptr_objs_data;
 };
