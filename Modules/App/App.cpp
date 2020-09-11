@@ -88,7 +88,8 @@ void App::LoadScene()
 			float radius = std::rand() % max_size + 0.01;
 			mesh = gen->CreateGeosphere(radius, 3);
 			bounds.MinVertex = XMFLOAT3(-radius, -radius, -radius);
-			bounds.MaxVertex = XMFLOAT3(radius, radius, radius); break;
+			bounds.MaxVertex = XMFLOAT3(radius, radius, radius); 
+			break;
 		}
 		case 2:
 		{
