@@ -85,6 +85,11 @@ struct DeferredShadingVertexOut
 	float2 TexC    : TEXCOORD;
 };
 
+struct IndirectCommand
+{
+	uint2 cbv;
+	uint4 drawArguments;
+};
 
 struct ObjectContants
 {
@@ -92,6 +97,7 @@ struct ObjectContants
 	float4x4 gTexTransform;
     AABB Bounds;
 	uint gMaterialIndex;
+    IndirectCommand DrawCommand;
 };
 
 struct PassContants
@@ -113,6 +119,7 @@ struct PassContants
     float gTotalTime;
     float gDeltaTime;
     float4 gAmbientLight;
+    uint gObjectNum;
 
     // Indices [0, NUM_DIR_LIGHTS) are directional lights;
     // indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;

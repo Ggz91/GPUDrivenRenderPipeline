@@ -51,6 +51,7 @@ public:
 	{
 		memcpy(&mMappedData[offset * mElementByteSize], data, mElementByteSize * element_size);
 	}
+
 private:
     Microsoft::WRL::ComPtr<ID3D12Resource> mUploadBuffer;
     BYTE* mMappedData = nullptr;
