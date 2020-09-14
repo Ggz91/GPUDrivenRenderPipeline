@@ -100,7 +100,7 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     for(int k=0; k < 4; ++k)
     {
         float sample_depth = hiz_tex.SampleLevel(g_sampler, ndc_aabb[k], level);
-        culling = culling && sample_depth < min_depth;
+        culling = culling && (sample_depth < min_depth);
         if(!culling)
         {
             break;
