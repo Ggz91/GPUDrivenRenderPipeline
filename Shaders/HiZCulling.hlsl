@@ -36,11 +36,13 @@ SamplerState g_sampler : register(s0);
 [numthreads(128, 1, 1)]
 void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
 {
+    
+
     if(thread_id.x > gObjectNum)
     {
         return;
     }
-
+ 
     ObjectContants  cur_data = object_data[thread_id.x];
     
     //根据bounds确定NDC空间的aabb和最小深度
@@ -104,8 +106,8 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
             break;
         }
     }
-    //culling 掉了加入到最终的buffer中
-    if(culling)
+    //没culling的加入到最终的buffer中
+    if(!culling)
     {
         output_buffer.Append(cur_data);
     }

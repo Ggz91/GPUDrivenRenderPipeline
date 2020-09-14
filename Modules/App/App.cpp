@@ -132,7 +132,10 @@ void App::LoadScene()
 	}
 	
 	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
-	converter->GetResult(m_loaded_render_items);
+	RenderItemClassifyParam param;
+	param.EyePos = XMFLOAT3(0, 500, 1500);
+	param.ThresholdDisctance = 2500;
+	converter->GetResult(m_loaded_render_items, param);
 	D3DApp::PushModels(m_loaded_render_items);
 }
 

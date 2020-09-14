@@ -10,6 +10,16 @@ using namespace DirectX::PackedVector;
 struct ObjectData;
 struct Material;
 
+enum class RenderLayer : int
+{
+	Occluder = 0,
+	Opaque,
+	SkinnedOpaque,
+	Debug,
+	Sky,
+	Count
+};
+
 // Lightweight structure stores parameters to draw a shape.  This will
 // vary from app-to-app.
 struct RenderItem
@@ -37,6 +47,8 @@ struct RenderItem
 	UINT StartIndexLocation = 0;
 	int BaseVertexLocation = 0;
 
+	RenderLayer Layer = RenderLayer::Opaque;
+
 	ObjectData Data;
 	AABB Bounds;
 
@@ -50,12 +62,4 @@ struct RenderItem
 	}
 };
 
-enum class RenderLayer : int
-{
-	Occluder = 0,
-	Opaque,
-	SkinnedOpaque,
-	Debug,
-	Sky,
-	Count
-};
+
