@@ -15,6 +15,25 @@
     #define NUM_SPOT_LIGHTS 0
 #endif
 
+#ifndef BufferThreadSize
+    #define BufferThreadSize 128
+#endif
+
+#ifndef VertexPerCluster
+    #define VertexPerCluster 64
+#endif
+
+#ifndef ClusterPerChunk
+    #define ClusterPerChunk 8
+#endif
+
+#ifndef MaxVertexNumPerInstance
+    #define MaxVertexNumPerInstance 2000
+#endif
+
+static const uint MaxVertexNumPerChunk = ClusterPerChunk * VertexPerCluster;
+static const uint MaxChunkNumPerInstance = MaxVertexNumPerInstance / MaxVertexNumPerChunk;
+
 #include "LightingUtil.hlsl"
 
 SamplerState gsamPointWrap        : register(s0);

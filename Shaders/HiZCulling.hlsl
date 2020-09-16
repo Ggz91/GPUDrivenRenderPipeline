@@ -1,16 +1,6 @@
 #include "Common.hlsl"
 
-#ifndef BufferThreadSize
-    #define BufferThreadSize 128
-#endif
 
-#ifndef VertexPerCluster
-    #define VertexPerCluster 64
-#endif
-
-#ifndef ClusterPerChunk
-    #define ClusterPerChunk 8
-#endif
 
 cbuffer PassData : register(b0)
 {
@@ -121,11 +111,10 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     if(!culling)
     {
         //为了后续的负载平衡，把单个instance按照ClusterPerChunk个cluster进行拆分
-        uint chunk_max_vertex = ClusterPerChunk * VertexPerCluster;
-        uint chunk_size = cur_data.DrawCommand.DrawArguments.x / chunk_max_vertex;
-        chunk_size += ( 0 == cur_data.DrawCommand.DrawArguments.x % chunk_max_vertex) ? 0 : 1;
+        uint chunk_size = cur_data.DrawCommand.DrawArguments.x / MaxVertexNumPerChunk;
+        chunk_size += ( 0 == cur_data.DrawCommand.DrawArguments.x % MaxVertexNumPerChunk) ? 0 : 1;
 
-        [unroll(ClusterPerChunk)]
+        [unroll(MaxChunkNumPerInstance)]
         for(uint j=0; j<chunk_size; ++j)
         {
             InstanceChunk chunk_data = (InstanceChunk) 0.0f;
