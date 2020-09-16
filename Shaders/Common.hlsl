@@ -87,8 +87,8 @@ struct DeferredShadingVertexOut
 
 struct IndirectCommand
 {
-	uint2 cbv;
-	uint4 drawArguments;
+	uint2 Cbv;
+	uint4 DrawArguments;
 };
 
 struct ObjectContants
@@ -96,8 +96,14 @@ struct ObjectContants
     float4x4 gWorld;
 	float4x4 gTexTransform;
     AABB Bounds;
-	uint gMaterialIndex;
     IndirectCommand DrawCommand;
+	uint gMaterialIndex;
+};
+
+struct InstanceChunk
+{
+    uint InstanceID;
+    uint ChunkID;
 };
 
 struct PassContants
@@ -126,6 +132,13 @@ struct PassContants
     // indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
     // are spot lights for a maximum of MaxLights per object.
     Light gLights[MaxLights];
+};
+
+struct ClusterChunk
+{
+    uint InstanceID;
+    uint ClusterID;
+    AABB Bound;
 };
 
 //---------------------------------------------------------------------------------------

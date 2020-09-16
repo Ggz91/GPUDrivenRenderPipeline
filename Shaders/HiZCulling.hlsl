@@ -1,5 +1,17 @@
 #include "Common.hlsl"
 
+#ifndef BufferThreadSize
+    #define BufferThreadSize 128
+#endif
+
+#ifndef VertexPerCluster
+    #define VertexPerCluster 64
+#endif
+
+#ifndef ClusterPerChunk
+    #define ClusterPerChunk 8
+#endif
+
 cbuffer PassData : register(b0)
 {
     float4x4 gView;
@@ -30,21 +42,19 @@ cbuffer PassData : register(b0)
 
 Texture2D<float> hiz_tex : register(t0);
 StructuredBuffer<ObjectContants> object_data : register(t1);
-AppendStructuredBuffer<ObjectContants> output_buffer : register(u0);
+AppendStructuredBuffer<InstanceChunk> output_buffer : register(u0);
 SamplerState g_sampler : register(s0);
 
-[numthreads(128, 1, 1)]
+[numthreads(BufferThreadSize, 1, 1)]
 void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
 {
-    
-
-    if(thread_id.x > gObjectNum)
+    if(thread_id.x >= gObjectNum)
     {
         return;
     }
- 
-    ObjectContants  cur_data = object_data[thread_id.x];
-    
+  
+    ObjectContants cur_data = object_data[thread_id.x];
+
     //根据bounds确定NDC空间的aabb和最小深度
     //AABB 世界空间位置
     float4 aabb_vertexes[8] = 
@@ -106,14 +116,27 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
             break;
         }
     }
+
     //没culling的加入到最终的buffer中
     if(!culling)
     {
-        output_buffer.Append(cur_data);
+        //为了后续的负载平衡，把单个instance按照ClusterPerChunk个cluster进行拆分
+        uint chunk_max_vertex = ClusterPerChunk * VertexPerCluster;
+        uint chunk_size = cur_data.DrawCommand.DrawArguments.x / chunk_max_vertex;
+        chunk_size += ( 0 == cur_data.DrawCommand.DrawArguments.x % chunk_max_vertex) ? 0 : 1;
+
+        [unroll(ClusterPerChunk)]
+        for(uint j=0; j<chunk_size; ++j)
+        {
+            InstanceChunk chunk_data = (InstanceChunk) 0.0f;
+            chunk_data.InstanceID = thread_id.x;
+            chunk_data.ChunkID = j;
+            output_buffer.Append(chunk_data);
+        }
     }
 }
 
-[numthreads(128, 1, 1)]
+[numthreads(BufferThreadSize, 1, 1)]
 void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
 {
 
