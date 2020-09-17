@@ -106,7 +106,6 @@ struct DeferredShadingVertexOut
 
 struct IndirectCommand
 {
-	uint2 Cbv;
 	uint4 DrawArguments;
 };
 
@@ -157,7 +156,6 @@ struct ClusterChunk
 {
     uint InstanceID;
     uint ClusterID;
-    AABB Bound;
 };
 
 //---------------------------------------------------------------------------------------
