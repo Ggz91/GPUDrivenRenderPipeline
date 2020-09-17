@@ -107,6 +107,7 @@ struct DeferredShadingVertexOut
 struct IndirectCommand
 {
 	uint4 DrawArguments;
+    uint DrawArgumentsEx;
 };
 
 struct ObjectContants
@@ -116,6 +117,7 @@ struct ObjectContants
     AABB Bounds;
     IndirectCommand DrawCommand;
 	uint gMaterialIndex;
+    uint IndexOffset;
 };
 
 struct InstanceChunk
