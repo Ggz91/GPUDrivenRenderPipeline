@@ -1,7 +1,5 @@
 #include "Common.hlsl"
 
-
-
 cbuffer PassData : register(b0)
 {
     float4x4 gView;
@@ -125,8 +123,3 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     }
 }
 
-[numthreads(BufferThreadSize, 1, 1)]
-void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
-{
-
-}
