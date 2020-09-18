@@ -24,13 +24,18 @@ cbuffer PassData : register(b0)
     Light gLights[MaxLights];
 }
 
+cbuffer CounterData : register(b1)
+{
+    uint gChunkCounter;
+}
+
 StructuredBuffer<ObjectContants> object_data : register(t0);
 Texture2D<float> hiz_tex : register(t1);
 StructuredBuffer<VertexIn> vertex_buffer : register(t2);
 StructuredBuffer<uint> index_buffer : register(t3);  
 
-ConsumeStructuredBuffer<ClusterChunk> cluster_chunk_data : register(u0);
-AppendStructuredBuffer<IndirectCommand> output_buffer : register(u1);
+StructuredBuffer<ClusterChunk> cluster_chunk_data : register(t4);
+AppendStructuredBuffer<IndirectCommand> output_buffer : register(u0);
 
 SamplerState g_sampler : register(s0);
 
@@ -41,9 +46,13 @@ void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     //2、根据cluster的顶点信息确定cluster的bounds
     //3、根据bounds使用跟Instance Culling类似的方法进行cluster culling
 
+    if(thread_id.x >= gChunkCounter)
+    {
+        return;
+    }
 
     //1、取顶点信息
-    ClusterChunk cur_cluster_data =  cluster_chunk_data.Consume();
+    ClusterChunk cur_cluster_data =  cluster_chunk_data[thread_id.x];
     ObjectContants cur_obj_data = object_data[cur_cluster_data.InstanceID];
     uint instance_index_count = cur_obj_data.DrawCommand.DrawArguments.x;
     uint index_count_offset = cur_obj_data.DrawCommand.DrawArguments.z + cur_cluster_data.ClusterID * VertexPerCluster * 3;
