@@ -106,6 +106,8 @@ struct DeferredShadingVertexOut
 
 struct IndirectCommand
 {
+    uint2 ObjCbv;
+    uint2 PassCbv;
 	uint4 DrawArguments;
     uint DrawArgumentsEx;
 };

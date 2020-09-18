@@ -124,6 +124,8 @@ void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
         command.DrawArguments.z = index_count_offset;
         command.DrawArguments.w = cur_obj_data.DrawCommand.DrawArguments.w;
         command.DrawArgumentsEx = 0;
+        command.ObjCbv = cur_obj_data.DrawCommand.ObjCbv;
+        command.PassCbv = cur_obj_data.DrawCommand.PassCbv;
         output_buffer.Append(command);
     }
 }

@@ -5,10 +5,10 @@ cbuffer cbPerObject : register(b0)
 {
     float4x4 gWorld;
 	float4x4 gTexTransform;
+    AABB Bounds;
+    IndirectCommand DrawCommand;
 	uint gMaterialIndex;
-	uint gObjPad0;
-	uint gObjPad1;
-	uint gObjPad2;
+    uint IndexOffset;
 };
 
 // Constant data that varies per material.
@@ -31,6 +31,7 @@ cbuffer cbPass : register(b1)
     float gTotalTime;
     float gDeltaTime;
     float4 gAmbientLight;
+    uint gObjectNum;
 
     // Indices [0, NUM_DIR_LIGHTS) are directional lights;
     // indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;
