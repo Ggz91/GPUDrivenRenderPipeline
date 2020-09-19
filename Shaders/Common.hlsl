@@ -110,6 +110,7 @@ struct IndirectCommand
     uint2 PassCbv;
 	uint4 DrawArguments;
     uint DrawArgumentsEx;
+    uint padding;
 };
 
 struct ObjectContants
@@ -119,7 +120,6 @@ struct ObjectContants
     AABB Bounds;
     IndirectCommand DrawCommand;
 	uint gMaterialIndex;
-    uint IndexOffset;
 };
 
 struct InstanceChunk

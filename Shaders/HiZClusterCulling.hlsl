@@ -55,7 +55,7 @@ void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     ClusterChunk cur_cluster_data =  cluster_chunk_data.Consume();
     ObjectContants cur_obj_data = object_data[cur_cluster_data.InstanceID];
     uint instance_index_count = cur_obj_data.DrawCommand.DrawArguments.x;
-    uint index_count_offset = cur_obj_data.DrawCommand.DrawArguments.z + cur_cluster_data.ClusterID * VertexPerCluster * 3;
+    uint index_count_offset = cur_cluster_data.ClusterID * VertexPerCluster * 3;//cur_obj_data.DrawCommand.DrawArguments.z + cur_cluster_data.ClusterID * VertexPerCluster * 3;
     uint cur_index_count = instance_index_count - cur_cluster_data.ClusterID * VertexPerCluster * 3;
     uint index_contant_offset = cur_obj_data.DrawCommand.DrawArguments.w;
 

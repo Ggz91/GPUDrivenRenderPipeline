@@ -23,7 +23,7 @@ void ChunkExpan(uint3 thread_id : SV_DISPATCHTHREADID)
     uint instance_vertex_num = object_data[cur_chunk.InstanceID].DrawCommand.DrawArguments.x;
     uint cur_chunk_vertex_offset = cur_chunk.ChunkID * MaxVertexNumPerChunk;
     uint cur_chunk_vertex_num = instance_vertex_num - cur_chunk_vertex_offset;
-    uint cluster_num = cur_chunk_vertex_num / VertexPerCluster;
+    uint cluster_num = cur_chunk_vertex_num / VertexPerCluster + (0 != cur_chunk_vertex_num % VertexPerCluster ? 1 : 0);
     uint cur_chunk_cluster_offset = cur_chunk.ChunkID * ClusterPerChunk;
 
     [unroll(ClusterPerChunk)]
