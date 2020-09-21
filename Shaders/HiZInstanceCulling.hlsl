@@ -69,6 +69,8 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     for(int index=0; index<8; ++index)
     {
         float4 ndc_cor = mul(aabb_vertexes[index], local_to_ndc);
+        ndc_cor.x /= ndc_cor.w;
+        ndc_cor.y /= ndc_cor.w;
         min_depth = min(min_depth, ndc_cor.z / ndc_cor.w);
         left = min(left, ndc_cor.x);
         right = max(right, ndc_cor.x);
@@ -79,9 +81,9 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     //根据长宽确定取第几层的hi z buffer，保证最长边刚好在相邻的两个纹素上
     float width = right - left;
     float height = top - bottom;
-    float size = max(width, height);
+    float size = max(width, height) / 2;
     size = size * gRenderTargetSize.x;
-    int level = 10 - log2(size);
+    uint level = min(8, (uint)log2(size));
 
     //根据ndc bounds 4个点的位置和最近点的关系进行剔除
     float2 ndc_aabb[4] = 

@@ -19,8 +19,8 @@
     #define BufferThreadSize 128
 #endif
 
-#ifndef VertexPerCluster
-    #define VertexPerCluster 64
+#ifndef IndicePerCluster
+    #define IndicePerCluster 192
 #endif
 
 #ifndef ClusterPerChunk
@@ -28,10 +28,10 @@
 #endif
 
 #ifndef MaxVertexNumPerInstance
-    #define MaxVertexNumPerInstance 2000
+    #define MaxVertexNumPerInstance 6000
 #endif
 
-static const uint MaxVertexNumPerChunk = ClusterPerChunk * VertexPerCluster;
+static const uint MaxVertexNumPerChunk = ClusterPerChunk * IndicePerCluster;
 static const uint MaxChunkNumPerInstance = MaxVertexNumPerInstance / MaxVertexNumPerChunk;
 
 #include "LightingUtil.hlsl"
@@ -110,15 +110,14 @@ struct IndirectCommand
     uint2 PassCbv;
 	uint4 DrawArguments;
     uint DrawArgumentsEx;
-    uint padding;
 };
 
 struct ObjectContants
 {
+    IndirectCommand DrawCommand;
     float4x4 gWorld;
 	float4x4 gTexTransform;
     AABB Bounds;
-    IndirectCommand DrawCommand;
 	uint gMaterialIndex;
 };
 

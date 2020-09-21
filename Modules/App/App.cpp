@@ -1,4 +1,4 @@
-﻿#include "App.h"
+#include "App.h"
 #include "../Common/Common.h"
 #include "../FBXUtil/FBXWrapper.h"
 #include "../Common/RenderItems.h"
@@ -17,7 +17,7 @@ GRPApp::App::~App()
 {
 	if (!m_loaded_render_items.empty())
 	{
-		for (int i=0; i<m_loaded_render_items.size(); ++i)
+		for (int i = 0; i < m_loaded_render_items.size(); ++i)
 		{
 			DELETE_PTR(m_loaded_render_items[i]->Mat);
 			DELETE_PTR(m_loaded_render_items[i]);
@@ -39,18 +39,18 @@ void App::Draw(const GameTimer& gt)
 
 void App::LoadScene()
 {
-// 	std::vector<std::unique_ptr<ObjectData>> objects_data;
-// 	auto res_status = FBXWrapperInstance->LoadScene(m_scene_path, objects_data);
-// 	if (ResLoadStatus::LS_SUCCESS != res_status)
-// 	{
-// 		LogError("Load Scene Failed, file name : {}", m_scene_path);
-// 		return;
-// 	}
-// 	LogInfo(" Load Scene Success, file name : {}", m_scene_path);
-// 
-//  	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
-//  	
-//  	D3DApp::PushModels(converter->Result());
+	// 	std::vector<std::unique_ptr<ObjectData>> objects_data;
+	// 	auto res_status = FBXWrapperInstance->LoadScene(m_scene_path, objects_data);
+	// 	if (ResLoadStatus::LS_SUCCESS != res_status)
+	// 	{
+	// 		LogError("Load Scene Failed, file name : {}", m_scene_path);
+	// 		return;
+	// 	}
+	// 	LogInfo(" Load Scene Success, file name : {}", m_scene_path);
+	// 
+	//  	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
+	//  	
+	//  	D3DApp::PushModels(converter->Result());
 
 
 	Material mat;
@@ -67,7 +67,7 @@ void App::LoadScene()
 	auto gen = new GeometryGenerator;
 	std::vector<std::unique_ptr<ObjectData>> objects_data;
 	UINT max_size = 300;
-	for (int i = 0; i < 1000; ++i)
+	for (int i = 0; i < 1; ++i)
 	{
 		GeometryGenerator::MeshData mesh;
 		int type = std::rand() % 4;
@@ -88,7 +88,7 @@ void App::LoadScene()
 			float radius = std::rand() % max_size + 0.01;
 			mesh = gen->CreateGeosphere(radius, 3);
 			bounds.MinVertex = XMFLOAT3(-radius, -radius, -radius);
-			bounds.MaxVertex = XMFLOAT3(radius, radius, radius); 
+			bounds.MaxVertex = XMFLOAT3(radius, radius, radius);
 			break;
 		}
 		case 2:
@@ -107,8 +107,8 @@ void App::LoadScene()
 			float top_radius = std::rand() % max_size + 0.01;
 			float height = std::rand() % max_size + 0.01;
 			mesh = gen->CreateCylinder(bottom_radius, top_radius, height, 20, 20);
-			bounds.MinVertex = XMFLOAT3(-bottom_radius, -height/2, -bottom_radius);
-			bounds.MaxVertex = XMFLOAT3(bottom_radius, height/2, bottom_radius);
+			bounds.MinVertex = XMFLOAT3(-bottom_radius, -height / 2, -bottom_radius);
+			bounds.MaxVertex = XMFLOAT3(bottom_radius, height / 2, bottom_radius);
 			break;
 		}
 		default:
@@ -127,10 +127,10 @@ void App::LoadScene()
 		data->Mesh.Indices.insert(data->Mesh.Indices.end(), mesh.GetIndices16().begin(), mesh.GetIndices16().end());
 		data->Mat = mat;
 		data->Bounds = bounds;
-		XMStoreFloat4x4(&data->World, XMMatrixTranslation(std::rand() % 10000 * (std::rand() % 2 ? 1 : -1), std::rand() % 100, -std::rand() % 10000));
+		//XMStoreFloat4x4(&data->World, XMMatrixTranslation(std::rand() % 10000 * (std::rand() % 2 ? 1 : -1), std::rand() % 100, -std::rand() % 10000));
 		objects_data.push_back(std::move(data));
 	}
-	
+
 	auto converter = std::make_unique<ObjectDataToRenderItemConverter>(&objects_data);
 	RenderItemClassifyParam param;
 	param.EyePos = XMFLOAT3(0, 500, 1500);
@@ -176,7 +176,7 @@ void App::Debug()
 bool App::Initialize()
 {
 
-	if(!D3DApp::Initialize())
+	if (!D3DApp::Initialize())
 	{
 		return false;
 	}
