@@ -47,7 +47,9 @@ SamplerComparisonState gsamShadow : register(s6);
 struct AABB
 {
     float3 MinVertex;
+    float pad0;
     float3 MaxVertex;
+    float pad1;
 };
 
 struct MaterialData
@@ -102,6 +104,15 @@ struct DeferredShadingVertexOut
 {
 	float4 PosH    : SV_POSITION;
 	float2 TexC    : TEXCOORD;
+};
+
+struct IndirectCommandEx
+{
+    uint2 ObjCbv;
+    uint2 PassCbv;
+	uint4 DrawArguments;
+    uint DrawArgumentsEx;
+    uint padding;
 };
 
 struct IndirectCommand

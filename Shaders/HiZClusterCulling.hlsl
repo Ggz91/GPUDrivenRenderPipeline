@@ -35,7 +35,7 @@ StructuredBuffer<VertexIn> vertex_buffer : register(t2);
 StructuredBuffer<uint> index_buffer : register(t3);  
 
 ConsumeStructuredBuffer<ClusterChunk> cluster_chunk_data : register(u0);
-AppendStructuredBuffer<IndirectCommand> output_buffer : register(u1);
+AppendStructuredBuffer<IndirectCommandEx> output_buffer : register(u1);
 
 SamplerState g_sampler : register(s0);
 
@@ -46,7 +46,7 @@ void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     //2、根据cluster的顶点信息确定cluster的bounds
     //3、根据bounds使用跟Instance Culling类似的方法进行cluster culling
 
-    if(thread_id.x >= 20)
+    if(thread_id.x >= gChunkCounter)
     {
         return;
     }
@@ -122,7 +122,7 @@ void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     if(!culling)
     {
         //填充indirect command
-        IndirectCommand command = (IndirectCommand) 0.0f;
+        IndirectCommandEx command = (IndirectCommandEx) 0.0f;
         command.DrawArguments.x = cur_index_count;
         command.DrawArguments.y = 1;
         command.DrawArguments.z = index_count_offset;

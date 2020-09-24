@@ -1,14 +1,17 @@
 #include "Common.hlsl"
 
+
 // Constant data that varies per frame.
 cbuffer cbPerObject : register(b0)
 {
+    IndirectCommand DrawCommand;
+    uint3 pad0;
+    uint4 pad1[2];
     float4x4 gWorld;
 	float4x4 gTexTransform;
     AABB Bounds;
-    IndirectCommand DrawCommand;
+    uint4 pad3[2];
 	uint gMaterialIndex;
-    uint IndexOffset;
 };
 
 // Constant data that varies per material.
@@ -43,7 +46,6 @@ cbuffer cbPass : register(b1)
 DeferredGSVertexOut DeferredGSVS(VertexIn vin)
 {
 	DeferredGSVertexOut vout = (DeferredGSVertexOut)0.0f;
-
     float4 posW = mul(float4(vin.PosL, 1.0f), gWorld);
 
     vout.NormalW = mul(vin.NormalL, (float3x3)gWorld);
