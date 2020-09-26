@@ -4,14 +4,19 @@
 // Constant data that varies per frame.
 cbuffer cbPerObject : register(b0)
 {
-    IndirectCommand DrawCommand;
+    uint2 ObjCbv;
+    uint2 PassCbv;
+	uint4 DrawArguments;
+    uint DrawArgumentsEx;
     uint3 pad0;
-    uint4 pad1[2];
     float4x4 gWorld;
 	float4x4 gTexTransform;
-    AABB Bounds;
-    uint4 pad3[2];
+    float3 BoundsMinVertex;
+    float pad1;
+    float3 BoundsMaxVertex;
+    float pad2;
 	uint gMaterialIndex;
+    float pad3[11];
 };
 
 // Constant data that varies per material.
@@ -41,6 +46,7 @@ cbuffer cbPass : register(b1)
     // indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
     // are spot lights for a maximum of MaxLights per object.
     Light gLights[MaxLights];
+    float4 pad[11];
 };
 
 DeferredGSVertexOut DeferredGSVS(VertexIn vin)

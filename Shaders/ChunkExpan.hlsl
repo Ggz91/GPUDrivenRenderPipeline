@@ -20,7 +20,7 @@ void ChunkExpan(uint3 thread_id : SV_DISPATCHTHREADID)
     InstanceChunk cur_chunk = input_buffer[thread_id.x];
 
     //根据chunk的顶点数，划分cluster
-    uint instance_vertex_num = object_data[cur_chunk.InstanceID].DrawCommand.DrawArguments.x;
+    uint instance_vertex_num = object_data[cur_chunk.InstanceID].DrawArguments.x;
     uint cur_chunk_vertex_offset = cur_chunk.ChunkID * MaxVertexNumPerChunk;
     uint cur_chunk_index_num = instance_vertex_num - cur_chunk_vertex_offset;
     uint cluster_num = cur_chunk_index_num / IndicePerCluster + (0 != cur_chunk_index_num % IndicePerCluster ? 1 : 0);

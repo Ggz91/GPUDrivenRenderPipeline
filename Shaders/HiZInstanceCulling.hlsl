@@ -26,6 +26,7 @@ cbuffer PassData : register(b0)
     // indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
     // are spot lights for a maximum of MaxLights per object.
     Light gLights[MaxLights];
+    float4 pad[11];
 }
 
 Texture2D<float> hiz_tex : register(t0);
@@ -47,14 +48,14 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     //AABB 世界空间位置
     float4 aabb_vertexes[8] = 
     {
-        float4(cur_data.Bounds.MinVertex.x, cur_data.Bounds.MinVertex.y, cur_data.Bounds.MinVertex.z, 1.0f),
-        float4(cur_data.Bounds.MinVertex.x, cur_data.Bounds.MinVertex.y, cur_data.Bounds.MaxVertex.z, 1.0f),
-        float4(cur_data.Bounds.MaxVertex.x, cur_data.Bounds.MinVertex.y, cur_data.Bounds.MinVertex.z, 1.0f),
-        float4(cur_data.Bounds.MaxVertex.x, cur_data.Bounds.MinVertex.y, cur_data.Bounds.MaxVertex.z, 1.0f),
-        float4(cur_data.Bounds.MinVertex.x, cur_data.Bounds.MaxVertex.y, cur_data.Bounds.MinVertex.z, 1.0f),
-        float4(cur_data.Bounds.MinVertex.x, cur_data.Bounds.MaxVertex.y, cur_data.Bounds.MaxVertex.z, 1.0f),
-        float4(cur_data.Bounds.MaxVertex.x, cur_data.Bounds.MaxVertex.y, cur_data.Bounds.MinVertex.z, 1.0f),
-        float4(cur_data.Bounds.MaxVertex.x, cur_data.Bounds.MaxVertex.y, cur_data.Bounds.MaxVertex.z, 1.0f),
+        float4(cur_data.BoundsMinVertex.x, cur_data.BoundsMinVertex.y, cur_data.BoundsMinVertex.z, 1.0f),
+        float4(cur_data.BoundsMinVertex.x, cur_data.BoundsMinVertex.y, cur_data.BoundsMaxVertex.z, 1.0f),
+        float4(cur_data.BoundsMaxVertex.x, cur_data.BoundsMinVertex.y, cur_data.BoundsMinVertex.z, 1.0f),
+        float4(cur_data.BoundsMaxVertex.x, cur_data.BoundsMinVertex.y, cur_data.BoundsMaxVertex.z, 1.0f),
+        float4(cur_data.BoundsMinVertex.x, cur_data.BoundsMaxVertex.y, cur_data.BoundsMinVertex.z, 1.0f),
+        float4(cur_data.BoundsMinVertex.x, cur_data.BoundsMaxVertex.y, cur_data.BoundsMaxVertex.z, 1.0f),
+        float4(cur_data.BoundsMaxVertex.x, cur_data.BoundsMaxVertex.y, cur_data.BoundsMinVertex.z, 1.0f),
+        float4(cur_data.BoundsMaxVertex.x, cur_data.BoundsMaxVertex.y, cur_data.BoundsMaxVertex.z, 1.0f),
     };
 
     float4x4 local_to_ndc = mul(cur_data.gWorld, gViewProj);
@@ -111,8 +112,8 @@ void HiZInstanceCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     if(!culling)
     {
         //为了后续的负载平衡，把单个instance按照ClusterPerChunk个cluster进行拆分
-        uint chunk_size = cur_data.DrawCommand.DrawArguments.x / MaxVertexNumPerChunk;
-        chunk_size += ( 0 == cur_data.DrawCommand.DrawArguments.x % MaxVertexNumPerChunk) ? 0 : 1;
+        uint chunk_size = cur_data.DrawArguments.x / MaxVertexNumPerChunk;
+        chunk_size += ( 0 == cur_data.DrawArguments.x % MaxVertexNumPerChunk) ? 0 : 1;
 
         [unroll(MaxChunkNumPerInstance)]
         for(uint j=0; j<chunk_size; ++j)

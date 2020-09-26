@@ -44,6 +44,7 @@ SamplerState gsamAnisotropicWrap  : register(s4);
 SamplerState gsamAnisotropicClamp : register(s5);
 SamplerComparisonState gsamShadow : register(s6);
 
+
 struct AABB
 {
     float3 MinVertex;
@@ -125,11 +126,19 @@ struct IndirectCommand
 
 struct ObjectContants
 {
-    IndirectCommand DrawCommand;
+    uint2 ObjCbv;
+    uint2 PassCbv;
+	uint4 DrawArguments;
+    uint DrawArgumentsEx;
+    float3 pad0;
     float4x4 gWorld;
 	float4x4 gTexTransform;
-    AABB Bounds;
-	uint gMaterialIndex;
+    float3 BoundsMinVertex;
+    float pad1;
+    float3 BoundsMaxVertex;
+    float pad2;
+	uint gMaterialIndex; 
+    float pad3[11];
 };
 
 struct InstanceChunk
@@ -164,6 +173,7 @@ struct PassContants
     // indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
     // are spot lights for a maximum of MaxLights per object.
     Light gLights[MaxLights];
+    float4 pad[11];
 };
 
 struct ClusterChunk

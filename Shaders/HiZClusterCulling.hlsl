@@ -22,6 +22,7 @@ cbuffer PassData : register(b0)
     uint gObjectNum;
 
     Light gLights[MaxLights];
+    float4 pad[11];
 }
 
 cbuffer CounterData : register(b1)
@@ -54,12 +55,12 @@ void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
     //1、取顶点信息
     ClusterChunk cur_cluster_data =  cluster_chunk_data.Consume();
     ObjectContants cur_obj_data = object_data[cur_cluster_data.InstanceID];
-    uint instance_index_count = cur_obj_data.DrawCommand.DrawArguments.x;
-    uint index_count_offset = cur_obj_data.DrawCommand.DrawArguments.z + cur_cluster_data.ClusterID * IndicePerCluster;
+    uint instance_index_count = cur_obj_data.DrawArguments.x;
+    uint index_count_offset = cur_obj_data.DrawArguments.z + cur_cluster_data.ClusterID * IndicePerCluster;
     uint max_cluster_count = instance_index_count / IndicePerCluster;
     max_cluster_count += instance_index_count % IndicePerCluster == 0 ? 0 : 1;
     uint cur_index_count = cur_cluster_data.ClusterID == (max_cluster_count - 1) ? (instance_index_count - cur_cluster_data.ClusterID * IndicePerCluster) : IndicePerCluster;
-    uint index_contant_offset = cur_obj_data.DrawCommand.DrawArguments.w;
+    uint index_contant_offset = cur_obj_data.DrawArguments.w;
 
     //2、确定bounds
     float4x4 local_to_ndc = mul(cur_obj_data.gWorld, gViewProj);
@@ -126,10 +127,10 @@ void HiZClusterCulling(uint3 thread_id : SV_DISPATCHTHREADID)
         command.DrawArguments.x = cur_index_count;
         command.DrawArguments.y = 1;
         command.DrawArguments.z = index_count_offset;
-        command.DrawArguments.w = cur_obj_data.DrawCommand.DrawArguments.w;
-        command.DrawArgumentsEx = cur_obj_data.DrawCommand.DrawArgumentsEx;
-        command.ObjCbv = cur_obj_data.DrawCommand.ObjCbv;
-        command.PassCbv = cur_obj_data.DrawCommand.PassCbv;
+        command.DrawArguments.w = cur_obj_data.DrawArguments.w;
+        command.DrawArgumentsEx = cur_obj_data.DrawArgumentsEx;
+        command.ObjCbv = cur_obj_data.ObjCbv;
+        command.PassCbv = cur_obj_data.PassCbv;
         output_buffer.Append(command);
     }
 }
