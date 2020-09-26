@@ -15,7 +15,25 @@
     #define NUM_SPOT_LIGHTS 0
 #endif
 
-// Include structures and functions for lighting.
+#ifndef BufferThreadSize
+    #define BufferThreadSize 128
+#endif
+
+#ifndef IndicePerCluster
+    #define IndicePerCluster 192
+#endif
+
+#ifndef ClusterPerChunk
+    #define ClusterPerChunk 8
+#endif
+
+#ifndef MaxVertexNumPerInstance
+    #define MaxVertexNumPerInstance 6000
+#endif
+
+static const uint MaxVertexNumPerChunk = ClusterPerChunk * IndicePerCluster;
+static const uint MaxChunkNumPerInstance = MaxVertexNumPerInstance / MaxVertexNumPerChunk;
+
 #include "LightingUtil.hlsl"
 
 SamplerState gsamPointWrap        : register(s0);
@@ -26,6 +44,14 @@ SamplerState gsamAnisotropicWrap  : register(s4);
 SamplerState gsamAnisotropicClamp : register(s5);
 SamplerComparisonState gsamShadow : register(s6);
 
+
+struct AABB
+{
+    float3 MinVertex;
+    float pad0;
+    float3 MaxVertex;
+    float pad1;
+};
 
 struct MaterialData
 {
@@ -79,6 +105,81 @@ struct DeferredShadingVertexOut
 {
 	float4 PosH    : SV_POSITION;
 	float2 TexC    : TEXCOORD;
+};
+
+struct IndirectCommandEx
+{
+    uint2 ObjCbv;
+    uint2 PassCbv;
+	uint4 DrawArguments;
+    uint DrawArgumentsEx;
+    uint padding;
+};
+
+struct IndirectCommand
+{
+    uint2 ObjCbv;
+    uint2 PassCbv;
+	uint4 DrawArguments;
+    uint DrawArgumentsEx;
+};
+
+struct ObjectContants
+{
+    uint2 ObjCbv;
+    uint2 PassCbv;
+	uint4 DrawArguments;
+    uint DrawArgumentsEx;
+    float3 pad0;
+    float4x4 gWorld;
+	float4x4 gTexTransform;
+    float3 BoundsMinVertex;
+    float pad1;
+    float3 BoundsMaxVertex;
+    float pad2;
+	uint gMaterialIndex; 
+    float pad3[11];
+};
+
+struct InstanceChunk
+{
+    uint InstanceID;
+    uint ChunkID;
+};
+
+struct PassContants
+{
+    float4x4 gView;
+    float4x4 gInvView;
+    float4x4 gProj;
+    float4x4 gInvProj;
+    float4x4 gViewProj;
+    float4x4 gInvViewProj;
+    float4x4 gViewProjTex;
+    float4x4 gShadowTransform;
+    float3 gEyePosW;
+    float cbPerObjectPad1;
+    float2 gRenderTargetSize;
+    float2 gInvRenderTargetSize;
+    float gNearZ;
+    float gFarZ;
+    float gTotalTime;
+    float gDeltaTime;
+    float4 gAmbientLight;
+    uint gObjectNum;
+    uint3 pad0;
+    // Indices [0, NUM_DIR_LIGHTS) are directional lights;
+    // indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;
+    // indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
+    // are spot lights for a maximum of MaxLights per object.
+    Light gLights[MaxLights];
+    float4 pad1[11];
+};
+
+struct ClusterChunk
+{
+    uint InstanceID;
+    uint ClusterID;
 };
 
 //---------------------------------------------------------------------------------------

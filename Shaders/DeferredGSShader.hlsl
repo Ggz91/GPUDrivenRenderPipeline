@@ -1,14 +1,22 @@
 #include "Common.hlsl"
 
+
 // Constant data that varies per frame.
 cbuffer cbPerObject : register(b0)
 {
+    uint2 ObjCbv;
+    uint2 PassCbv;
+	uint4 DrawArguments;
+    uint DrawArgumentsEx;
+    uint3 pad0;
     float4x4 gWorld;
 	float4x4 gTexTransform;
+    float3 BoundsMinVertex;
+    float pad1;
+    float3 BoundsMaxVertex;
+    float pad2;
 	uint gMaterialIndex;
-	uint gObjPad0;
-	uint gObjPad1;
-	uint gObjPad2;
+    float pad3[11];
 };
 
 // Constant data that varies per material.
@@ -31,18 +39,19 @@ cbuffer cbPass : register(b1)
     float gTotalTime;
     float gDeltaTime;
     float4 gAmbientLight;
-
+    uint gObjectNum;
+    uint3 pad0;
     // Indices [0, NUM_DIR_LIGHTS) are directional lights;
     // indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;
     // indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
     // are spot lights for a maximum of MaxLights per object.
     Light gLights[MaxLights];
+    float4 pad[11];
 };
 
 DeferredGSVertexOut DeferredGSVS(VertexIn vin)
 {
 	DeferredGSVertexOut vout = (DeferredGSVertexOut)0.0f;
-
     float4 posW = mul(float4(vin.PosL, 1.0f), gWorld);
 
     vout.NormalW = mul(vin.NormalL, (float3x3)gWorld);

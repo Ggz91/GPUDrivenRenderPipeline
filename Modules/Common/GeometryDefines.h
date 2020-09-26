@@ -1,7 +1,9 @@
-#pragma once
+﻿#pragma once
+
 
 #include <windows.h>
 #include "MathHelper.h"
+
 
 // Simple struct to represent a material for our demos.  A production 3D engine
 // would likely create a class hierarchy of Materials.
@@ -73,7 +75,9 @@ struct MeshData
 struct  AABB
 {
 	DirectX::XMFLOAT3 MinVertex;
+	float pad1;
 	DirectX::XMFLOAT3 MaxVertex;
+	float pad0;
 };
 
 struct ObjectData
