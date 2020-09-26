@@ -20,6 +20,7 @@ cbuffer cbPass : register(b1)
     float gTotalTime;
     float gDeltaTime;
     float4 gAmbientLight;
+    uint gObjectNum;
 
     // Indices [0, NUM_DIR_LIGHTS) are directional lights;
     // indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;
@@ -85,8 +86,8 @@ float4 ShadingPS(DeferredGSVertexOut input) : SV_TARGET0
 	float2 uv = DecodeUV(normal_uv_depth.z);
 	float4 normal_vertex = UnpackNormal(DecodeNormal(normal_uv_depth.x));
 	float4 tangent_vertex = UnpackNormal(DecodeNormal(normal_uv_depth.y));
-	MaterialData mat_data = mats_data[mat_id];
 
+	MaterialData mat_data = mats_data[mat_id];
 	float4 diffuse_albedo = mat_data.DiffuseAlbedo * g_textures[mat_data.DiffuseMapIndex].Sample(gsamAnisotropicWrap, uv);
 	float4 normal_map_sample = g_textures[mat_data.NormalMapIndex].Sample(gsamAnisotropicWrap, uv);
 	float3 bumped_normal_ws = NormalSampleToWorldSpace(normal_map_sample.rgb, normal_vertex.rgb, tangent_vertex.rgb);
@@ -95,9 +96,7 @@ float4 ShadingPS(DeferredGSVertexOut input) : SV_TARGET0
 	float3 pos_ws = MapNDCCorToWorldCor(ndc_cor);
 	float3 to_eye_ws = normalize(gEyePosW - pos_ws);
 	float4 ambient = gAmbientLight * diffuse_albedo;
-	
 	float3 shadow_factor = float3(1.0f, 1.0f, 1.0f);
-
 	const float shininess = (1.0f - mat_data.Roughness) * normal_map_sample.a;
 	Material mat = {diffuse_albedo, mat_data.FresnelR0, shininess};
 	float4 direct_light = ComputeLighting(gLights, mat, pos_ws, bumped_normal_ws, to_eye_ws, shadow_factor);
