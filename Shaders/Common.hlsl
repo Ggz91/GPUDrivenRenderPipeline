@@ -167,13 +167,13 @@ struct PassContants
     float gDeltaTime;
     float4 gAmbientLight;
     uint gObjectNum;
-
+    uint3 pad0;
     // Indices [0, NUM_DIR_LIGHTS) are directional lights;
     // indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;
     // indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
     // are spot lights for a maximum of MaxLights per object.
     Light gLights[MaxLights];
-    float4 pad[11];
+    float4 pad1[11];
 };
 
 struct ClusterChunk

@@ -20,9 +20,9 @@ cbuffer PassData : register(b0)
     float gDeltaTime;
     float4 gAmbientLight;
     uint gObjectNum;
-
+    uint3 pad0;
     Light gLights[MaxLights];
-    float4 pad[11];
+    float4 pad1[11];
 }
 
 cbuffer CounterData : register(b1)
