@@ -23,7 +23,7 @@ void ObjectDataToRenderItemConverter::GetResult(std::vector<RenderItem*>& res, R
 		render_item->World = data->World;
 		render_item->Bounds = data->Bounds;
 		render_item->Data = *(data.get());
-		render_item->Layer = RenderLayer::Opaque;// Distance(XMFLOAT3(data->World._41, data->World._42, data->World._43), param.EyePos) < param.ThresholdDisctance ? RenderLayer::Occluder : RenderLayer::Opaque;
+		render_item->Layer = Distance(XMFLOAT3(data->World._41, data->World._42, data->World._43), param.EyePos) < param.ThresholdDisctance ? RenderLayer::Occluder : RenderLayer::Opaque;
 		res.push_back(render_item.release());
 		res.back()->Mat = new Material();
 		res.back()->Mat->DiffuseMapPath = data->Mat.DiffuseMapPath;

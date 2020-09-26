@@ -67,7 +67,7 @@ void App::LoadScene()
 	auto gen = new GeometryGenerator;
 	std::vector<std::unique_ptr<ObjectData>> objects_data;
 	UINT max_size = 300;
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 1000; ++i)
 	{
 		GeometryGenerator::MeshData mesh;
 		int type = std::rand() % 4;
@@ -127,7 +127,7 @@ void App::LoadScene()
 		data->Mesh.Indices.insert(data->Mesh.Indices.end(), mesh.GetIndices16().begin(), mesh.GetIndices16().end());
 		data->Mat = mat;
 		data->Bounds = bounds;
-		//XMStoreFloat4x4(&data->World, XMMatrixTranslation(std::rand() % 10000 * (std::rand() % 2 ? 1 : -1), std::rand() % 100, -std::rand() % 10000));
+		XMStoreFloat4x4(&data->World, XMMatrixTranslation(std::rand() % 10000 * (std::rand() % 2 ? 1 : -1), std::rand() % 100, -std::rand() % 10000));
 		objects_data.push_back(std::move(data));
 	}
 
